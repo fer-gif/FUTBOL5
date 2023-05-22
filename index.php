@@ -1,6 +1,6 @@
 <?php
 
-define("BASE_URL", '' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']));
+define("BASE_URL", 'http://' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']));
 
 require_once('controller/TorneoController.php');
 
@@ -15,4 +15,21 @@ switch ($params[0]) {
     case 'home':
         $control = new TorneoController();
         $control->mostrarHome();
+        break;
+    case 'equipos':
+        $control = new TorneoController();
+        $control->mostrarEquipos();
+        break;
+    case 'equipo':
+        $control = new TorneoController();
+        $control->mostrarEquipo($params[1]);
+        break;
+    case 'editarJugador':
+        $control = new TorneoController();
+        $control->mostrarEditarJugador($params[1]);
+        break;
+    case 'updateJugador':
+        $control = new TorneoController();
+        $control->editarJugador();
+        break;
 }

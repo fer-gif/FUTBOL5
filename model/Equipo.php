@@ -118,4 +118,8 @@ class Equipo
         $this->gf = $gf;
         $this->gc = $gc;
     }
+    public function addJugador($jugador)
+    {
+        array_push($this->jugadores, $jugador);
+    }
 }

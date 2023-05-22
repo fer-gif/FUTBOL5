@@ -15,7 +15,7 @@ class Jugador
     /**
      * Funcion constructora
      */
-    public function __constructor($id, $nombre, $apellido, $edad, $pos, $goles, $amarillas, $asistencias, $equipo)
+    public function __construct($id, $nombre, $apellido, $edad, $pos, $goles, $amarillas, $asistencias, $equipo)
     {
         $this->idJugador = $id;
         $this->nombre = $nombre;
@@ -27,6 +27,7 @@ class Jugador
         $this->asistencias = $asistencias;
         $this->equipo = $equipo;
     }
+
     public function getIdJugador()
     {
         return $this->idJugador;
