@@ -23,6 +23,7 @@
                 {if $admin}
                 <li><a href="{$base}/gestion">GESTION</a></li>
                 {/if}
+                <li><a href="{$base}/login">LOGIN</a></li>
             </ul>
         </nav>
     </header>
