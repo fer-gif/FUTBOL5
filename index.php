@@ -45,4 +45,11 @@ switch ($params[0]) {
             case 'eliminar':
                 break;
         }
+        break;
+    case 'admin':
+        $control = new TorneoController();
+        $control->mostrarGestionAdmin();
+    case 'registrarequipo':
+        $control = new TorneoController();
+        $control->registrarEquipo();
 }

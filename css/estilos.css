@@ -147,3 +147,17 @@ h1 {
     margin: 20px auto 0 auto;
     margin-bottom: 10px;
 }
+
+.registroEquipo {
+    border: 1px solid #343333;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    box-shadow: #FFFFFF 0 1;
+}
+
+.registroEquipo h3 {
+    color: #FFFFFF;
+}

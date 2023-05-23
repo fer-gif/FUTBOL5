@@ -21,7 +21,7 @@
                 <li><a href="{$base}/miequipo">MI EQUIPO</a></li>
                 {/if}
                 {if $admin}
-                <li><a href="{$base}/gestion">GESTION</a></li>
+                <li><a href="{$base}/admin">GESTION</a></li>
                 {/if}
                 <li><a href="{$base}/login">LOGIN</a></li>
             </ul>

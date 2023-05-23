@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-05-22 20:19:38
+/* Smarty version 4.3.1, created on 2023-05-23 02:48:06
   from 'C:\xampp\htdocs\FUTBOL5\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_646bb23a9a6a17_08884956',
+  'unifunc' => 'content_646c0d46ca0585_85555281',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7b4fa6801a7834d27f83b0c42777a4324eb24b8e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\FUTBOL5\\templates\\header.tpl',
-      1 => 1684779574,
+      1 => 1684800848,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_646bb23a9a6a17_08884956 (Smarty_Internal_Template $_smarty_tpl) {
+function content_646c0d46ca0585_85555281 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="es">
 
@@ -52,7 +52,7 @@ function content_646bb23a9a6a17_08884956 (Smarty_Internal_Template $_smarty_tpl)
                 <?php }?>
                 <?php if ($_smarty_tpl->tpl_vars['admin']->value) {?>
                 <li><a href="<?php echo $_smarty_tpl->tpl_vars['base']->value;?>
-/gestion">GESTION</a></li>
+/admin">GESTION</a></li>
                 <?php }?>
                 <li><a href="<?php echo $_smarty_tpl->tpl_vars['base']->value;?>
 /login">LOGIN</a></li>

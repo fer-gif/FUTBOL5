@@ -36,4 +36,15 @@ class TorneoController
             echo $_REQUEST['nombre'];
         }
     }
+    public function mostrarGestionAdmin()
+    {
+        $this->vista->renderAdmin();
+    }
+    public function registrarEquipo()
+    {
+        if (isset($_REQUEST['nombreEquipo']) && (!empty($_REQUEST['nombreEquipo']))) {
+            $nombre = $_REQUEST['nombreEquipo'];
+            //$this->modelo->addE
+        }
+    }
 }
