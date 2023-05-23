@@ -5,15 +5,14 @@
         private $db;
 
         public function __construct(){
-            $this->db=new PDO("mysql");
+            $this->db = new PDO('mysql:host=localhost;'.'dbname=db_appfutbol;charset=utf8', 'root', '');
           
-
         }
 
         
 
         public function getTorneo(){
-            $sentence = $this->db->prepare( "select Nombre, Puntos AS ,Partidos-Jugados AS PJ, Ganados AS PG, Perdidos AS PP, Empatados AS PE, Goles  from equipos ORDER BY Puntos ASC");
+            $sentence = $this->db->prepare( "select * from equipos ORDER BY Puntos ASC");
             $sentence->execute();
             $positions = $sentence->fetchAll(PDO::FETCH_OBJ);
             return $positions;
