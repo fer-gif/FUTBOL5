@@ -9,26 +9,26 @@ class TorneoController
     public function __construct()
     {
         $this->vista = new TorneoView();
-        $this->modelo=new TorneoModel();
+        //$this->modelo = new TorneoModel();
     }
 
     public function mostrarHome()
     {
         $this->modelo->getTorneo();
-        $this->vista->visualizaHome();
+        $this->vista->renderHome();
     }
     public function mostrarEquipos()
     {
-        $this->vista->visualizarEquipos();
+        $this->vista->renderEquipos();
     }
     public function mostrarEquipo($id)
     {
-        $this->vista->visualizarEquipo($id);
+        $this->vista->renderEquipo($id);
     }
     public function mostrarEditarJugador($id)
     {
         $jugador = null;
-        $this->vista->visualizarEditarJugador($jugador);
+        $this->vista->renderEditarJugador($jugador);
     }
     public function editarJugador()
     {
@@ -43,8 +43,8 @@ class TorneoController
     public function registrarEquipo()
     {
         if (isset($_REQUEST['nombreEquipo']) && (!empty($_REQUEST['nombreEquipo']))) {
-            $nombre = $_REQUEST['nombreEquipo'];
-            //$this->modelo->addE
+            /* $nombre = $_REQUEST['nombreEquipo'];
+            $this->modelo->addEquipo($nombre);*/
         }
     }
 }

@@ -15,7 +15,7 @@ class TorneoView
         $plantilla->assign("admin", $admin);
         return $plantilla;
     }
-    public function visualizaHome()
+    public function renderHome()
     {
         $equipos = new EquiposTest();
         $plantilla = new Smarty();
@@ -24,7 +24,7 @@ class TorneoView
         $plantilla->display('home.tpl');
     }
 
-    public function visualizarEquipos()
+    public function renderEquipos()
     {
         $equipos = new EquiposTest();
         $plantilla = new Smarty();
@@ -32,7 +32,7 @@ class TorneoView
         $plantilla->assign("equipos", $equipos->getEquipos());
         $plantilla->display('equipos.tpl');
     }
-    public function visualizarEquipo($idEquipo)
+    public function renderEquipo($idEquipo)
     {
         $equipos = new EquipoTest();
         $equipo = $equipos->getEquipo();
@@ -43,7 +43,7 @@ class TorneoView
         $plantilla->display('equipo.tpl');
     }
 
-    public function visualizarEditarJugador($jugador)
+    public function renderEditarJugador($jugador)
     {
         $equipos = new EquipoTest();
         $equipo = $equipos->getEquipo();
