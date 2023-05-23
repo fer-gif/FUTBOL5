@@ -47,4 +47,9 @@ switch ($params[0]) {
         }
         break;
     case 'admin':
+        $control = new TorneoController();
+        $control->mostrarGestionAdmin();
+    case 'registrarequipo':
+        $control = new TorneoController();
+        $control->registrarEquipo();
 }

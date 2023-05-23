@@ -7,7 +7,14 @@ require_once 'equipoTest.php';
 
 class TorneoView
 {
-
+    private function cargarHeader($plantilla, $titulo, $user, $admin)
+    {
+        $plantilla->assign("titulo", $titulo);
+        $plantilla->assign("base", BASE_URL);
+        $plantilla->assign("user", $user);
+        $plantilla->assign("admin", $admin);
+        return $plantilla;
+    }
     public function visualizaHome()
     {
         $equipos = new EquiposTest();
@@ -46,12 +53,11 @@ class TorneoView
         $plantilla->assign("jugador", $jug);
         $plantilla->display('editarjugador.tpl');
     }
-    private function cargarHeader($plantilla, $titulo, $user, $admin)
+
+    public function renderAdmin()
     {
-        $plantilla->assign("titulo", $titulo);
-        $plantilla->assign("base", BASE_URL);
-        $plantilla->assign("user", $user);
-        $plantilla->assign("admin", $admin);
-        return $plantilla;
+        $plantilla = new Smarty();
+        $plantilla = $this->cargarHeader($plantilla, "EDITAR JUGADOR", true, true);
+        $plantilla->display('gestionadmin.tpl');
     }
 }
