@@ -9,7 +9,7 @@ class TorneoController
     public function __construct()
     {
         $this->vista = new TorneoView();
-        //$this->modelo = new TorneoModel();
+        $this->modelo = new TorneoModel();
     }
 
     public function mostrarHome()
@@ -43,8 +43,8 @@ class TorneoController
     public function registrarEquipo()
     {
         if (isset($_REQUEST['nombreEquipo']) && (!empty($_REQUEST['nombreEquipo']))) {
-            /* $nombre = $_REQUEST['nombreEquipo'];
-            $this->modelo->addEquipo($nombre);*/
+            $nombre = $_REQUEST['nombreEquipo'];
+            $this->modelo->addEquipo($nombre);
         }
     }
 }

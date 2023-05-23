@@ -3,7 +3,7 @@
 class Conexion
 {
     private $host = "localhost";
-    private $db = "dbw_casadelimpieza";
+    private $db = "db_appfutbol5";
     private $user = "root";
     private $pass = "";
     private $conexion;
@@ -13,7 +13,7 @@ class Conexion
         try {
             $this->conexion = new PDO("mysql:host=" . $this->host . "; dbname=" . $this->db . "; charset=utf8", $this->user, $this->pass);
         } catch (PDOException $e) {
-           /* $this->conexion = null;*/
+            /* $this->conexion = null;*/
         }
         /*return $this->conexion;*/
     }
@@ -25,7 +25,6 @@ class Conexion
 
     public function dissconect()
     {
-        $this->conexion=null;
+        $this->conexion = null;
     }
 }
-?>
