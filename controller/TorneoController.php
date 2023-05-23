@@ -32,5 +32,8 @@ class TorneoController
     }
     public function editarJugador()
     {
+        if (!empty($_REQUEST['nombre']) && !empty($_REQUEST['apellido']) && !empty($_REQUEST['posicion'])) {
+            echo $_REQUEST['nombre'];
+        }
     }
 }

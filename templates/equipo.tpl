@@ -12,13 +12,16 @@
             <td>{$jugador->getPosicion()}</td>
             <td>{$jugador->getNombre()}</td>
             <td>{$jugador->getApellido()}</td>
+            {if $user}
             <td>
                 <div class="iconos">
-                    <a href="{$base}/editarJugador/{$jugador->getIdJugador()}"><img src="../image/iconseditar.png"></a>
-                    <a href="{$base}/eliminarJugador/{$jugador->getIdJugador()}"><img
-                            src="../image/iconsBorrar.png"></a>
+                    <a href="{$base}/jugador/editar/{$jugador->getIdJugador()}"><img
+                            src="{$base}/image/iconseditar.png"></a>
+                    <a href="{$base}/jugador/eliminar/{$jugador->getIdJugador()}"><img
+                            src="{$base}/image/iconsBorrar.png"></a>
                 </div>
             </td>
+            {/if}
         </tr>
         {/foreach}
     </table>

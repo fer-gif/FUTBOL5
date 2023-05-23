@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-05-22 16:10:25
+/* Smarty version 4.3.1, created on 2023-05-22 22:07:39
   from 'C:\xampp\htdocs\FUTBOL5\templates\equipo.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_646b77d1d4fa77_83914501',
+  'unifunc' => 'content_646bcb8bd37761_33507812',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '977f64b4412322f7f81ab62429bc9ac5446a043f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\FUTBOL5\\templates\\equipo.tpl',
-      1 => 1684764489,
+      1 => 1684786056,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_646b77d1d4fa77_83914501 (Smarty_Internal_Template $_smarty_tpl) {
+function content_646bcb8bd37761_33507812 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 <main>
@@ -47,17 +47,22 @@ $_smarty_tpl->tpl_vars['jugador']->do_else = false;
 </td>
             <td><?php echo $_smarty_tpl->tpl_vars['jugador']->value->getApellido();?>
 </td>
+            <?php if ($_smarty_tpl->tpl_vars['user']->value) {?>
             <td>
                 <div class="iconos">
                     <a href="<?php echo $_smarty_tpl->tpl_vars['base']->value;?>
-/editarJugador/<?php echo $_smarty_tpl->tpl_vars['jugador']->value->getIdJugador();?>
-"><img src="../image/iconseditar.png"></a>
-                    <a href="<?php echo $_smarty_tpl->tpl_vars['base']->value;?>
-/eliminarJugador/<?php echo $_smarty_tpl->tpl_vars['jugador']->value->getIdJugador();?>
+/jugador/editar/<?php echo $_smarty_tpl->tpl_vars['jugador']->value->getIdJugador();?>
 "><img
-                            src="../image/iconsBorrar.png"></a>
+                            src="<?php echo $_smarty_tpl->tpl_vars['base']->value;?>
+/image/iconseditar.png"></a>
+                    <a href="<?php echo $_smarty_tpl->tpl_vars['base']->value;?>
+/jugador/eliminar/<?php echo $_smarty_tpl->tpl_vars['jugador']->value->getIdJugador();?>
+"><img
+                            src="<?php echo $_smarty_tpl->tpl_vars['base']->value;?>
+/image/iconsBorrar.png"></a>
                 </div>
             </td>
+            <?php }?>
         </tr>
         <?php
 }

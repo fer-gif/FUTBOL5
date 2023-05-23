@@ -21,15 +21,28 @@ switch ($params[0]) {
         $control->mostrarEquipos();
         break;
     case 'equipo':
-        $control = new TorneoController();
-        $control->mostrarEquipo($params[1]);
+        switch ($params[1]) {
+            case 'editar':
+                break;
+            case 'eliminar':
+                break;
+            case 'ver':
+                $control = new TorneoController();
+                $control->mostrarEquipo($params[1]);
+                break;
+        }
         break;
-    case 'editarJugador':
-        $control = new TorneoController();
-        $control->mostrarEditarJugador($params[1]);
-        break;
-    case 'updateJugador':
-        $control = new TorneoController();
-        $control->editarJugador();
-        break;
+    case 'jugador':
+        switch ($params[1]) {
+            case 'editar':
+                $control = new TorneoController();
+                $control->mostrarEditarJugador($params[1]);
+                break;
+            case 'update':
+                $control = new TorneoController();
+                $control->editarJugador($params[1]);
+                break;
+            case 'eliminar':
+                break;
+        }
 }
