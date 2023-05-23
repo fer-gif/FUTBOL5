@@ -5,27 +5,31 @@ class Equipo
     private $idEquipo;
     private $nombre;
     private $jugadores;
-    private $pj;
+    private $partidos_jugados;
     private $pg;
     private $pe;
     private $pp;
     private $gf;
     private $gc;
     private $puntos;
-
-    public function __construct($id, $nombre, $jugadores, $pj, $pg, $pe, $pp, $gf, $gc, $puntos)
+    /*
+    public function __construct($id, $nombre, $jugadores, $partidos_jugados, $pg, $pe, $pp, $gf, $gc, $puntos)
     {
         $this->idEquipo = $id;
         $this->nombre = $nombre;
         $this->jugadores = $jugadores;
-        $this->pj = $pj;
+        $this->partidos_jugados = $partidos_jugados;
         $this->pg = $pg;
         $this->pe = $pe;
         $this->pp = $pp;
         $this->gf = $gf;
         $this->gc = $gc;
         $this->puntos = $puntos;
+    }*/
+    public function __construct()
+    {
     }
+
 
     public function getIdEquipo()
     {
@@ -48,13 +52,13 @@ class Equipo
     {
         $this->jugadores = $jugadores;
     }
-    public function getPJ()
+    public function getPartidos_jugados()
     {
-        return $this->pj;
+        return $this->partidos_jugados;
     }
-    public function setPJ($pj)
+    public function setPartidos_jugados($partidos_jugados)
     {
-        $this->pj = $pj;
+        $this->partidos_jugados = $partidos_jugados;
     }
     public function getPG()
     {
@@ -113,7 +117,7 @@ class Equipo
         } elseif ($puntos === 0) {
             $this->pp += 1;
         }
-        $this->pj += 1;
+        $this->partidos_jugados += 1;
         $this->puntos += $puntos;
         $this->gf = $gf;
         $this->gc = $gc;

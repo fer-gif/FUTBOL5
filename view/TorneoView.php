@@ -15,12 +15,12 @@ class TorneoView
         $plantilla->assign("admin", $admin);
         return $plantilla;
     }
-    public function renderHome()
+    public function renderHome($equipos)
     {
-        $equipos = new EquiposTest();
+        //$equipos = new EquiposTest();
         $plantilla = new Smarty();
         $plantilla = $this->cargarHeader($plantilla, "HOME", true, true);
-        $plantilla->assign("equipos", $equipos->getEquipos());
+        $plantilla->assign("equipos", $equipos);
         $plantilla->display('home.tpl');
     }
 

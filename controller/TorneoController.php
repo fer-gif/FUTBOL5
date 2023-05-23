@@ -14,8 +14,8 @@ class TorneoController
 
     public function mostrarHome()
     {
-        $this->modelo->getTorneo();
-        $this->vista->renderHome();
+        $equipos = $this->modelo->getTorneo();
+        $this->vista->renderHome($equipos);
     }
     public function mostrarEquipos()
     {

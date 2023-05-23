@@ -17,7 +17,7 @@
             <td>Pos</td>
             <td>{$equipo->getNombre()}</td>
             <td>{$equipo->getPuntos()}</td>
-            <td>{$equipo->getPJ()}</td>
+            <td>{$equipo->getPartidos_jugados()}</td>
             <td>{$equipo->getPG()}</td>
             <td>{$equipo->getPE()}</td>
             <td>{$equipo->getPP()}</td>
