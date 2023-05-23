@@ -7,11 +7,13 @@
         <input type="submit" value="Registrar">
     </form>
 </div>
+<!--ALTA DE USUARIOS-->
 
 <div>
     <select name="equipo" id="">
         {foreach from=$equipos item=equipo}
         <option value="{$equipo->getIdEquipo()}">{$equipo->getNombre()}</option>
+        {/foreach}
     </select>
 </div>
 

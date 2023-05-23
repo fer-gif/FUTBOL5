@@ -45,4 +45,6 @@ switch ($params[0]) {
             case 'eliminar':
                 break;
         }
+        break;
+    case 'admin':
 }
