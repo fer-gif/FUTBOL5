@@ -1,5 +1,6 @@
 <?php
 require_once('view/TorneoView.php');
+require_once('model/TorneoModel.php');
 class TorneoController
 {
     private $vista;
@@ -8,10 +9,12 @@ class TorneoController
     public function __construct()
     {
         $this->vista = new TorneoView();
+        $this->modelo=new TorneoModel();
     }
 
     public function mostrarHome()
     {
+        $this->modelo->getTorneo();
         $this->vista->visualizaHome();
     }
     public function mostrarEquipos()
