@@ -19,7 +19,8 @@ class TorneoController
     }
     public function mostrarEquipos()
     {
-        $this->vista->renderEquipos();
+        $equipos = $this->modelo->getTorneo();
+        $this->vista->renderEquipos($equipos);
     }
     public function mostrarEquipo($id)
     {
@@ -46,5 +47,9 @@ class TorneoController
             $nombre = $_REQUEST['nombreEquipo'];
             $this->modelo->addEquipo($nombre);
         }
+    }
+    public function mostrarMiEquipo()
+    {
+        $this->vista->renderMiEquipo();
     }
 }

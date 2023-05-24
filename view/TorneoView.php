@@ -7,40 +7,41 @@ require_once 'equipoTest.php';
 
 class TorneoView
 {
-    private function cargarHeader($plantilla, $titulo, $user, $admin)
+    private $plantilla;
+    public function __construct()
     {
-        $plantilla->assign("titulo", $titulo);
-        $plantilla->assign("base", BASE_URL);
-        $plantilla->assign("user", $user);
-        $plantilla->assign("admin", $admin);
-        return $plantilla;
+        $this->plantilla = new Smarty();
+    }
+    private function cargarHeader($titulo, $user, $admin)
+    {
+        $this->plantilla->assign("titulo", $titulo);
+        $this->plantilla->assign("base", BASE_URL);
+        $this->plantilla->assign("user", $user);
+        $this->plantilla->assign("admin", $admin);
     }
     public function renderHome($equipos)
     {
         //$equipos = new EquiposTest();
-        $plantilla = new Smarty();
-        $plantilla = $this->cargarHeader($plantilla, "HOME", true, true);
-        $plantilla->assign("equipos", $equipos);
-        $plantilla->display('home.tpl');
+        $this->cargarHeader("HOME", true, true);
+        $this->plantilla->assign("equipos", $equipos);
+        $this->plantilla->display('home.tpl');
     }
 
-    public function renderEquipos()
+    public function renderEquipos($equipos)
     {
-        $equipos = new EquiposTest();
-        $plantilla = new Smarty();
-        $plantilla = $this->cargarHeader($plantilla, "EQUIPOS", true, true);
-        $plantilla->assign("equipos", $equipos->getEquipos());
-        $plantilla->display('equipos.tpl');
+        //$equipos = new EquiposTest();
+        $this->cargarHeader("EQUIPOS", true, true);
+        $this->plantilla->assign("equipos", $equipos);
+        $this->plantilla->display('equipos.tpl');
     }
     public function renderEquipo($idEquipo)
     {
         $equipos = new EquipoTest();
         $equipo = $equipos->getEquipo();
-        $plantilla = new Smarty();
-        $plantilla = $this->cargarHeader($plantilla, $equipo->getNombre(), true, true);
-        $plantilla->assign("nombreEquipo", $equipo->getNombre());
-        $plantilla->assign("jugadores", $equipo->getJugadores());
-        $plantilla->display('equipo.tpl');
+        $this->cargarHeader($equipo->getNombre(), true, true);
+        $this->plantilla->assign("nombreEquipo", $equipo->getNombre());
+        $this->plantilla->assign("jugadores", $equipo->getJugadores());
+        $this->plantilla->display('equipo.tpl');
     }
 
     public function renderEditarJugador($jugador)
@@ -48,16 +49,19 @@ class TorneoView
         $equipos = new EquipoTest();
         $equipo = $equipos->getEquipo();
         $jug = $equipo->getJugadores()[0];
-        $plantilla = new Smarty();
-        $plantilla = $this->cargarHeader($plantilla, "EDITAR JUGADOR", true, true);
-        $plantilla->assign("jugador", $jug);
-        $plantilla->display('editarjugador.tpl');
+        $this->cargarHeader("EDITAR JUGADOR", true, true);
+        $this->plantilla->assign("jugador", $jug);
+        $this->plantilla->display('editarjugador.tpl');
     }
 
     public function renderAdmin()
     {
-        $plantilla = new Smarty();
-        $plantilla = $this->cargarHeader($plantilla, "EDITAR JUGADOR", true, true);
-        $plantilla->display('gestionadmin.tpl');
+        $this->cargarHeader("ADMINISTRADOR", false, true);
+        $this->plantilla->display('gestionadmin.tpl');
+    }
+    public function renderMiEquipo()
+    {
+        $this->cargarHeader("MI EQUIPO", true, false);
+        $this->plantilla->display('miequipo.tpl');
     }
 }

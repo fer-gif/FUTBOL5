@@ -52,4 +52,7 @@ switch ($params[0]) {
     case 'registrarequipo':
         $control = new TorneoController();
         $control->registrarEquipo();
+    case 'miequipo':
+        $control = new TorneoController();
+        $control->mostrarMiEquipo();
 }
