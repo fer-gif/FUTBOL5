@@ -1,5 +1,7 @@
 <?php
 
+require_once 'model/Conexion.php';
+
 class Equipo
 {
     private $idEquipo;
@@ -12,6 +14,7 @@ class Equipo
     private $gf;
     private $gc;
     private $puntos;
+    private $connection;
     /*
     public function __construct($id, $nombre, $jugadores, $partidos_jugados, $pg, $pe, $pp, $gf, $gc, $puntos)
     {
@@ -28,6 +31,7 @@ class Equipo
     }*/
     public function __construct()
     {
+        $connection=new Conexion();
     }
 
 
