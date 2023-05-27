@@ -16,4 +16,8 @@ class UserController
     {
         $this->userView->renderMiEquipo();
     }
+    public function mostrarLogin()
+    {
+        $this->userView->renderIngresoLogin();
+    }
 }

@@ -18,4 +18,9 @@ class UserView
         $this->torneoView->cargarHeader($this->plantilla, "MI EQUIPO", true, false);
         $this->plantilla->display('miequipo.tpl');
     }
+    public function renderIngresoLogin()
+    {
+        $this->torneoView->cargarHeader($this->plantilla, "LOGIN", false, false);
+        $this->plantilla->display('login.tpl');
+    }
 }

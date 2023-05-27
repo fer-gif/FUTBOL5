@@ -2,7 +2,6 @@
 
 define("BASE_URL", 'http://' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']));
 
-require_once('controller/TorneoController.php');
 require_once('controller/EquipoController.php');
 require_once('controller/JugadorController.php');
 require_once('controller/AdminController.php');
@@ -33,7 +32,11 @@ switch ($params[0]) {
                 break;
             case 'ver':
                 $control = new JugadorController();
-                $control->mostrarJugadoresxEquipo($params[1]);
+                $control->mostrarJugadoresxEquipo($params[2]);
+                break;
+            case 'registrar':
+                $control = new EquipoController();
+                $control->registrarEquipo();
                 break;
         }
         break;
@@ -49,15 +52,26 @@ switch ($params[0]) {
                 break;
             case 'eliminar':
                 break;
+            case 'registrar':
+                $control = new JugadorController();
+                $control->registrarJugador();
+                break;
         }
         break;
     case 'admin':
         $control = new AdminController();
         $control->mostrarGestionAdmin();
-    case 'registrarequipo':
-        $control = new EquipoController();
-        $control->registrarEquipo();
+        break;
     case 'miequipo':
         $control = new UserController();
         $control->mostrarMiEquipo();
+        break;
+    case 'fixture':
+        $control = new EquipoController();
+        $control->mostrarFixture();
+        break;
+    case 'login':
+        $control = new UserController();
+        $control->mostrarLogin();
+        break;
 }

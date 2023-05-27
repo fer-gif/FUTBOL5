@@ -2,7 +2,7 @@
 
 class Equipo
 {
-    private $idEquipo;
+    private $id_equipo;
     private $nombre;
     private $jugadores;
     private $partidos_jugados;
@@ -33,7 +33,7 @@ class Equipo
 
     public function getIdEquipo()
     {
-        return $this->idEquipo;
+        return $this->id_equipo;
     }
 
     public function getNombre()

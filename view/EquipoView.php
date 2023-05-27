@@ -27,4 +27,11 @@ class EquipoView
         $this->plantilla->assign("equipos", $equipos);
         $this->plantilla->display('equipos.tpl');
     }
+
+    public function renderFixture($equipos)
+    {
+        $this->torneoView->cargarHeader($this->plantilla, "FIXTURE", false, true);
+        $this->plantilla->assign("equipos", $equipos);
+        $this->plantilla->display('fixture.tpl');
+    }
 }

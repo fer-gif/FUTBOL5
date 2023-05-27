@@ -2,6 +2,7 @@
 require_once 'TorneoView.php';
 require_once 'libs/smarty/Smarty.class.php';
 
+
 class JugadorView
 {
     private $plantilla;
@@ -16,10 +17,10 @@ class JugadorView
     /**
      * Muestra una lista de jugadores que pertenecen al mmismo equipo
      */
-    public function renderJugadoresxEquipo(/*$equipo*/)
+    public function renderJugadoresxEquipo($equipo)
     {
-        $equipos = new EquipoTest();
-        $equipo = $equipos->getEquipo();
+        //$equipos = new EquipoTest();
+        //$equipo = $equipos->getEquipo();
         $this->torneoView->cargarHeader($this->plantilla, $equipo->getNombre(), true, true);
         $this->plantilla->assign("nombreEquipo", $equipo->getNombre());
         $this->plantilla->assign("jugadores", $equipo->getJugadores());

@@ -12,9 +12,10 @@ class AdminView
         $this->torneoView = new TorneoView();
     }
 
-    public function renderAdmin()
+    public function renderAdmin($equipos)
     {
         $this->torneoView->cargarHeader($this->plantilla, "ADMINISTRADOR", false, true);
+        $this->plantilla->assign("equipos", $equipos);
         $this->plantilla->display('gestionadmin.tpl');
     }
 }

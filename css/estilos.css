@@ -130,7 +130,8 @@ h1 {
     flex-direction: column;
     margin: 20px auto;
     background-color: #343333;
-    padding: 10px
+    padding: 10px;
+    width: 80%;
 }
 
 .formEditar label {
@@ -139,11 +140,15 @@ h1 {
     color: #FFFFFF;
 }
 
-.formEditar input {
-    height: 30px;
+select {
+    height: 25px;
 }
 
-.btnEditar {
+.formEditar input {
+    height: 25px;
+}
+
+.btnSubmit {
     width: 50%;
     margin: 20px auto 0 auto;
     margin-bottom: 10px;
@@ -168,8 +173,6 @@ footer {
     background-color: #000000;
     width: 100%;
     padding: 20px;
-    position: absolute;
-    bottom: 0;
 }
 
 .footerdiv {
@@ -177,5 +180,57 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #FFFFFF;
+}
+
+.formFixture {
+    background-color: #343333;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 0;
+    width: 60%;
+    margin: auto;
+}
+
+.formFixture h2 {
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.partido {
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+    color: #FFFFFF;
+    align-items: flex-end;
+}
+
+.partido select {
+    width: 150px;
+}
+
+.inputGoles {
+    width: 50px;
+    height: 30px;
+}
+
+.btnRegistrarPartido {
+    margin: auto;
+}
+
+.selectEquipo {
+    display: flex;
+    flex-direction: column;
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    min-width: 300px;
+    margin: auto;
+    row-gap: 20px;
+    background-color: #343333;
     color: #FFFFFF;
 }
