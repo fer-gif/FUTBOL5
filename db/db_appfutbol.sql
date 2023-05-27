@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-05-2023 a las 04:03:07
+-- Tiempo de generación: 27-05-2023 a las 20:35:23
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -51,22 +51,6 @@ INSERT INTO `equipos` (`id_equipo`, `nombre`, `partidos_jugados`, `ganados`, `pe
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estadisticapartido`
---
-
-CREATE TABLE `estadisticapartido` (
-  `id_estadistica` int(11) NOT NULL,
-  `id_jugador` int(11) NOT NULL,
-  `id_partido` int(11) NOT NULL,
-  `goles` int(11) NOT NULL,
-  `tarjeta_amarilla` int(11) NOT NULL,
-  `tarjeta_roja` int(11) NOT NULL,
-  `asistencias` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `fixture`
 --
 
@@ -74,7 +58,8 @@ CREATE TABLE `fixture` (
   `id_partido` int(11) NOT NULL,
   `id_equipo1` int(11) NOT NULL,
   `id_equipo2` int(11) NOT NULL,
-  `resultado` int(11) NOT NULL
+  `goles_id_equipo1` int(11) NOT NULL,
+  `goles_id_equipo2` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -119,14 +104,6 @@ ALTER TABLE `equipos`
   ADD PRIMARY KEY (`id_equipo`);
 
 --
--- Indices de la tabla `estadisticapartido`
---
-ALTER TABLE `estadisticapartido`
-  ADD PRIMARY KEY (`id_estadistica`),
-  ADD KEY `ID_Jugador` (`id_jugador`),
-  ADD KEY `ID_Partido` (`id_partido`);
-
---
 -- Indices de la tabla `fixture`
 --
 ALTER TABLE `fixture`
@@ -159,12 +136,6 @@ ALTER TABLE `equipos`
   MODIFY `id_equipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `estadisticapartido`
---
-ALTER TABLE `estadisticapartido`
-  MODIFY `id_estadistica` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `fixture`
 --
 ALTER TABLE `fixture`
@@ -187,30 +158,23 @@ ALTER TABLE `usuarios`
 --
 
 --
--- Filtros para la tabla `estadisticapartido`
---
-ALTER TABLE `estadisticapartido`
-  ADD CONSTRAINT `estadisticapartido_ibfk_1` FOREIGN KEY (`ID_Jugador`) REFERENCES `jugadores` (`ID_Jugador`),
-  ADD CONSTRAINT `estadisticapartido_ibfk_2` FOREIGN KEY (`ID_Partido`) REFERENCES `fixture` (`ID_Partido`);
-
---
 -- Filtros para la tabla `fixture`
 --
 ALTER TABLE `fixture`
-  ADD CONSTRAINT `fixture_ibfk_1` FOREIGN KEY (`ID_Equipo1`) REFERENCES `equipos` (`ID_Equipo`),
-  ADD CONSTRAINT `fixture_ibfk_2` FOREIGN KEY (`ID_Equipo2`) REFERENCES `equipos` (`ID_Equipo`);
+  ADD CONSTRAINT `fixture_ibfk_1` FOREIGN KEY (`id_equipo1`) REFERENCES `equipos` (`id_equipo`),
+  ADD CONSTRAINT `fixture_ibfk_2` FOREIGN KEY (`id_equipo2`) REFERENCES `equipos` (`id_equipo`);
 
 --
 -- Filtros para la tabla `jugadores`
 --
 ALTER TABLE `jugadores`
-  ADD CONSTRAINT `jugadores_ibfk_1` FOREIGN KEY (`ID_Equipo`) REFERENCES `equipos` (`ID_Equipo`);
+  ADD CONSTRAINT `jugadores_ibfk_1` FOREIGN KEY (`ID_Equipo`) REFERENCES `equipos` (`id_equipo`);
 
 --
 -- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`ID_Equipo`) REFERENCES `equipos` (`ID_Equipo`);
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`ID_Equipo`) REFERENCES `equipos` (`id_equipo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
