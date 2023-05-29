@@ -1,6 +1,6 @@
 <?php
-require_once 'model/conexion.php';
-require_once 'model/Equipo.php';
+require_once 'model/ConexionModel.php';
+require_once 'model/EquipoModel.php';
 class TorneoModel
 {
     /*private $db;
@@ -25,7 +25,7 @@ class TorneoModel
     public function getTorneo()
     {
         $c = $this->connection->getConnection();
-        $sentence = $c->prepare("select * from equipos ORDER BY Puntos ASC");
+        $sentence = $c->prepare("select * from equipos ORDER BY puntos ASC");
         $sentence->execute();
         $sentence->setFetchMode(PDO::FETCH_CLASS, 'Equipo');
         $positions = $sentence->fetchAll();
@@ -36,7 +36,7 @@ class TorneoModel
     public function deleteEquipo($id)
     {
         $c = $this->connection->getConnection();
-        $sentence = $c->prepare("DELETE FROM equipos WHERE ID_Equipo=?");
+        $sentence = $c->prepare("DELETE FROM equipos WHERE id_equipo=?");
         $response = $sentence->execute(array($id));
         $c = null;
     }
@@ -44,7 +44,7 @@ class TorneoModel
     public function addEquipo($nombre)
     {
         $c = $this->connection->getConnection();
-        $sentence = $c->prepare("INSERT INTO equipos(Nombre) VALUES(?)");
+        $sentence = $c->prepare("INSERT INTO equipos(nombre) VALUES(?)");
         $sentence->execute(array($nombre));
         $lastId = $c->lastInsertId();
         $c = null;
@@ -54,7 +54,7 @@ class TorneoModel
     public function deleteJugador($id)
     {
         $c = $this->connection->getConnection();
-        $sentence = $c->prepare("DELETE FROM jugadores WHERE ID_Jquipo=?");
+        $sentence = $c->prepare("DELETE FROM jugadores WHERE id_jugador=?");
         $response = $sentence->execute(array($id));
         $c = null;
     }
@@ -62,7 +62,7 @@ class TorneoModel
     public function addJugador($nombre, $apellido, $dni, $pos, $tel, $equipo)
     {
         $c = $this->connection->getConnection();
-        $sentence = $c->prepare("INSERT INTO equipos(Nombre,Apellido,DNI,Posicion,Numero_Tel,ID_Equipo) VALUES(?,?,?,?,?,?)");
+        $sentence = $c->prepare("INSERT INTO equipos(nombre,apellido,dni,posicion,numero_tel,id_equipo) VALUES(?,?,?,?,?,?)");
         $sentence->execute(array($nombre, $apellido, $dni, $pos, $tel, $equipo));
         $lastId = $c->lastInsertId();
         $c = null;

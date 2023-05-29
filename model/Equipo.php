@@ -1,6 +1,6 @@
 <?php
 
-require_once 'model/Conexion.php';
+require_once 'model/ConexionModel.php';
 
 class Equipo
 {
@@ -8,11 +8,9 @@ class Equipo
     private $nombre;
     private $jugadores;
     private $partidos_jugados;
-    private $pg;
-    private $pe;
-    private $pp;
-    private $gf;
-    private $gc;
+    private $ganados;
+    private $perdidos;
+    private $empatados;
     private $puntos;
     private $connection;
     /*
@@ -31,26 +29,43 @@ class Equipo
     }*/
     public function __construct()
     {
-        $connection=new Conexion();
+        $this->connection=new Conexion();
     }
 
 
-    public function getIdEquipo()
+    public function getEquipo($id)
     {
-        return $this->idEquipo;
+        $c = $this->connection->getConnection();
+        $sentence=$c->prepare("SELECT * from equipos WHERE id_equipo=$id");
+        $sentence->execute();
+        $sentence->fetch(PDO::FETCH_ASSOC);
+        $id_equipo=$sentence->fetch();
+        return $id_equipo;
     }
 
-    public function getNombre()
+    public function getNombre($name)
     {
-        return $this->nombre;
+        $c = $this->connection->getConnection();
+        $sentence=$c->prepare("SELECT nombre from equipos WHERE nombre=$name");
+        $sentence->execute();
+        $sentence->fetch(PDO::FETCH_ASSOC);
+        $nombre=$sentence->fetch();
+        return $nombre;
     }
     public function setNombre($nombre)
-    {
+    {   
         $this->nombre = $nombre;
     }
-    public function getJugadores()
-    {
-        return $this->jugadores;
+    public function getJugadores($equipo)
+    {   
+        $c=$this->connection->getConnection();
+        $sentence=$c->prepare("SELECT nombre, apellido
+        FROM jugadores
+        INNER JOIN equipos ON id_equipo = id_equipo
+        WHERE nombre = $equipo");
+        $sentence->execute();
+        $jugadores=$sentence->fetchAll(PDO::FETCH_OBJ);
+        return $jugadores;
     }
     public function setJugadores($jugadores)
     {
@@ -66,27 +81,27 @@ class Equipo
     }
     public function getPG()
     {
-        return $this->pg;
+        return $this->ganados;
     }
-    public function setPG($pg)
+    public function setPG($ganados)
     {
-        $this->pg = $pg;
+        $this->ganados = $ganados;
     }
     public function getPE()
     {
-        return $this->pe;
+        return $this->empatados;
     }
-    public function setPE($pe)
+    public function setPE($empatados)
     {
-        $this->pe = $pe;
+        $this->empatados = $empatados;
     }
     public function getPP()
     {
-        return $this->pp;
+        return $this->perdidos;
     }
-    public function setPP($pp)
+    public function setPP($perdidos)
     {
-        $this->pp = $pp;
+        $this->perdidos = $perdidos;
     }
     public function getGF()
     {
@@ -115,11 +130,11 @@ class Equipo
     public function registrarPartido($puntos, $gf, $gc)
     {
         if ($puntos === 3) {
-            $this->pg += 1;
+            $this->ganados += 1;
         } elseif ($puntos === 1) {
-            $this->pe += 1;
+            $this->empatados += 1;
         } elseif ($puntos === 0) {
-            $this->pp += 1;
+            $this->perdidos += 1;
         }
         $this->partidos_jugados += 1;
         $this->puntos += $puntos;

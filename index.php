@@ -28,7 +28,7 @@ switch ($params[0]) {
                 break;
             case 'ver':
                 $control = new TorneoController();
-                $control->mostrarEquipo($params[1]);
+                $control->mostrarEquipo($params[2]);
                 break;
         }
         break;

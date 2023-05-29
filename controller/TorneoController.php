@@ -1,15 +1,17 @@
 <?php
 require_once('view/TorneoView.php');
 require_once('model/TorneoModel.php');
+require_once('model/EquipoModel.php');
 class TorneoController
 {
     private $vista;
     private $modelo;
-
+    private $modeloequipo;
     public function __construct()
     {
         $this->vista = new TorneoView();
         $this->modelo = new TorneoModel();
+        $this->modeloequipo = new Equipo();
     }
 
     public function mostrarHome()
@@ -23,6 +25,7 @@ class TorneoController
     }
     public function mostrarEquipo($id)
     {
+        $this->modeloequipo->getEquipo($id);
         $this->vista->renderEquipo($id);
     }
     public function mostrarEditarJugador($id)
