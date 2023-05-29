@@ -2,7 +2,7 @@
 
 class Equipo
 {
-    private $idEquipo;
+    private $id_equipo;
     private $nombre;
     private $jugadores;
     private $partidos_jugados;
@@ -26,14 +26,23 @@ class Equipo
         $this->gc = $gc;
         $this->puntos = $puntos;
     }*/
-    public function __construct()
+    public function __construct($id_equipo, $nombre)
     {
+        $this->id_equipo = $id_equipo;
+        $this->nombre = $nombre;
+        $this->partidos_jugados = 0;
+        $this->pg = 0;
+        $this->pe = 0;
+        $this->pp = 0;
+        $this->gf = 0;
+        $this->gc = 0;
+        $this->puntos = 0;
     }
 
 
     public function getIdEquipo()
     {
-        return $this->idEquipo;
+        return $this->id_equipo;
     }
 
     public function getNombre()

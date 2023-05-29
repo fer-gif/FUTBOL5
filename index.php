@@ -2,7 +2,12 @@
 
 define("BASE_URL", 'http://' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']));
 
-require_once('controller/TorneoController.php');
+require_once('controller/EquipoController.php');
+require_once('controller/JugadorController.php');
+require_once('controller/AdminController.php');
+require_once('controller/UserController.php');
+require_once('controller/PartidoController.php');
+
 
 if (!empty($_REQUEST['action']))
     $accion = $_REQUEST['action'];
@@ -13,11 +18,11 @@ $params = explode("/", $accion);
 
 switch ($params[0]) {
     case 'home':
-        $control = new TorneoController();
+        $control = new PartidoController();
         $control->mostrarHome();
         break;
     case 'equipos':
-        $control = new TorneoController();
+        $control = new EquipoController();
         $control->mostrarEquipos();
         break;
     case 'equipo':
@@ -27,29 +32,51 @@ switch ($params[0]) {
             case 'eliminar':
                 break;
             case 'ver':
-                $control = new TorneoController();
-                $control->mostrarEquipo($params[1]);
+                $control = new JugadorController();
+                $control->mostrarJugadoresxEquipo($params[2]);
+                break;
+            case 'registrar':
+                $control = new EquipoController();
+                $control->registrarEquipo();
                 break;
         }
         break;
     case 'jugador':
         switch ($params[1]) {
             case 'editar':
-                $control = new TorneoController();
+                $control = new JugadorController();
                 $control->mostrarEditarJugador($params[1]);
                 break;
             case 'update':
-                $control = new TorneoController();
+                $control = new JugadorController();
                 $control->editarJugador($params[1]);
                 break;
             case 'eliminar':
                 break;
+            case 'registrar':
+                $control = new JugadorController();
+                $control->registrarJugador();
+                break;
         }
         break;
     case 'admin':
-        $control = new TorneoController();
+        $control = new AdminController();
         $control->mostrarGestionAdmin();
-    case 'registrarequipo':
-        $control = new TorneoController();
-        $control->registrarEquipo();
+        break;
+    case 'miequipo':
+        $control = new UserController();
+        $control->mostrarMiEquipo();
+        break;
+    case 'fixture':
+        $control = new EquipoController();
+        $control->mostrarFixture();
+        break;
+    case 'login':
+        $control = new UserController();
+        $control->mostrarLogin();
+        break;
+    case 'registrarPartido':
+        $control = new EquipoController();
+        $control->registrarPartido();
+        break;
 }

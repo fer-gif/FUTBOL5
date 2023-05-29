@@ -5,26 +5,22 @@ class Jugador
     private $idJugador;
     private $nombre;
     private $apellido;
-    private $edad;
+    private $dni;
     private $posicion;
-    private $goles;
-    private $amarillas;
-    private $asistencias;
+    private $telefono;
     private $equipo;
 
     /**
      * Funcion constructora
      */
-    public function __construct($id, $nombre, $apellido, $edad, $pos, $goles, $amarillas, $asistencias, $equipo)
+    public function __construct($id, $nombre, $apellido, $dni, $pos, $telefono, $equipo)
     {
         $this->idJugador = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
-        $this->edad = $edad;
+        $this->dni = $dni;
         $this->posicion = $pos;
-        $this->goles = $goles;
-        $this->amarillas = $amarillas;
-        $this->asistencias = $asistencias;
+        $this->telefono = $telefono;
         $this->equipo = $equipo;
     }
 
@@ -48,13 +44,13 @@ class Jugador
     {
         return $this->apellido;
     }
-    public function setEdad($edad)
+    public function setDNI($dni)
     {
-        $this->edad = $edad;
+        $this->dni = $dni;
     }
-    public function getEdad()
+    public function getDNI()
     {
-        return $this->edad;
+        return $this->dni;
     }
     public function setPosicion($posicion)
     {
@@ -64,30 +60,15 @@ class Jugador
     {
         return $this->posicion;
     }
-    public function setGoles($goles)
+    public function setTelefono($telefono)
     {
-        $this->goles = $goles;
+        $this->telefono = $telefono;
     }
-    public function getGoles()
+    public function getTelefono()
     {
-        return $this->goles;
+        return $this->telefono;
     }
-    public function setAmarillas($amarillas)
-    {
-        $this->amarillas = $amarillas;
-    }
-    public function getAmarillas()
-    {
-        return $this->amarillas;
-    }
-    public function setAsistencias($asistencias)
-    {
-        $this->asistencias = $asistencias;
-    }
-    public function getAsistencias()
-    {
-        return $this->asistencias;
-    }
+
     public function setEquipo($equipo)
     {
         $this->equipo = $equipo;
@@ -95,18 +76,5 @@ class Jugador
     public function getEquipo()
     {
         return $this->equipo;
-    }
-
-    public function sumarGoles($goles)
-    {
-        $this->goles = $this->goles + $goles;
-    }
-    public function sumarAmarrilas($amarillas)
-    {
-        $this->amarillas = $this->amarillas + $amarillas;
-    }
-    public function sumarAsistencias($asistencias)
-    {
-        $this->asistencias = $this->asistencias + $asistencias;
     }
 }

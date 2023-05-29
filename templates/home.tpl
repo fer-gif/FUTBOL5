@@ -12,9 +12,10 @@
             <th>GF</th>
             <th>GC</th>
         </thead>
-        {foreach from=$equipos item=equipo}
+
+        {foreach name="tablaequipos" from=$equipos item=equipo}
         <tr class="filaTablaPosicion">
-            <td>Pos</td>
+            <td>{$smarty.foreach.tablaequipos.iteration}</td>
             <td>{$equipo->getNombre()}</td>
             <td>{$equipo->getPuntos()}</td>
             <td>{$equipo->getPartidos_jugados()}</td>
