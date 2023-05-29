@@ -21,6 +21,7 @@ class JugadorController
     }
     public function mostrarJugadoresxEquipo($id)
     {
+        //$jugadores = $this->jugadorModel->getjugadores($id);
         $equipo = $this->equipoModel->getEquipo($id);
         $this->jugadorView->renderJugadoresxEquipo($equipo);
     }

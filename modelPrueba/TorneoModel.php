@@ -25,35 +25,23 @@ class TorneoModel
     public function getTorneo()
     {
         $c = $this->connection->getConnection();
-        $sentence = $c->prepare("SELECT id_equipo, nombre FROM equipos");
+        $sentence = $c->prepare("select * from equipos ORDER BY Puntos ASC");
         $sentence->execute();
-        $sentence->setFetchMode(PDO::FETCH_OBJ);
+        $sentence->setFetchMode(PDO::FETCH_CLASS, 'Equipo');
         $positions = $sentence->fetchAll();
-        $equipos = [];
-        foreach ($positions as $equipo) {
-            array_push($equipos, new Equipo($equipo->id_equipo, $equipo->nombre));
-        }
         $c = null;
-        return $equipos;
+        return $positions;
     }
 
     public function deleteEquipo($id)
     {
         $c = $this->connection->getConnection();
-        $sentence = $c->prepare("DELETE FROM equipos WHERE ID_Equipo=?");
+        $sentence = $c->prepare("DELETE FROM equipos WHERE id_equipo=?");
         $response = $sentence->execute(array($id));
         $c = null;
     }
 
-    public function addEquipo($nombre)
-    {
-        $c = $this->connection->getConnection();
-        $sentence = $c->prepare("INSERT INTO equipos(Nombre) VALUES(?)");
-        $sentence->execute(array($nombre));
-        $lastId = $c->lastInsertId();
-        $c = null;
-        return $lastId;
-    }
+
 
     public function deleteJugador($id)
     {

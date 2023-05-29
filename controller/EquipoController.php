@@ -15,14 +15,7 @@ class EquipoController
         $this->equipoModel = new TorneoModel();
         $this->equipoModelPrueba = new EquipoModel();
     }
-    /**
-     * Muestra la tabla de posiciones de los equipos
-     */
-    public function mostrarHome()
-    {
-        $equipos = $this->equipoModel->getTorneo();
-        $this->equipoView->renderHome($equipos);
-    }
+
     /**
      * Muestra una lista de los equipos en la cual se puede hacer click sobre un elemento
      * y ver la lista de los jugadores anotados en dicho equipo

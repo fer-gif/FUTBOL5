@@ -6,6 +6,7 @@ require_once('controller/EquipoController.php');
 require_once('controller/JugadorController.php');
 require_once('controller/AdminController.php');
 require_once('controller/UserController.php');
+require_once('controller/PartidoController.php');
 
 
 if (!empty($_REQUEST['action']))
@@ -17,7 +18,7 @@ $params = explode("/", $accion);
 
 switch ($params[0]) {
     case 'home':
-        $control = new EquipoController();
+        $control = new PartidoController();
         $control->mostrarHome();
         break;
     case 'equipos':
@@ -73,5 +74,9 @@ switch ($params[0]) {
     case 'login':
         $control = new UserController();
         $control->mostrarLogin();
+        break;
+    case 'registrarPartido':
+        $control = new EquipoController();
+        $control->registrarPartido();
         break;
 }
