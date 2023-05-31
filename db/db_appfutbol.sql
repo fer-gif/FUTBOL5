@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2023 a las 20:35:23
+-- Tiempo de generación: 23-05-2023 a las 04:03:07
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 7.4.30
 
@@ -29,24 +29,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `equipos` (
   `id_equipo` int(11) NOT NULL,
-  `nombre` varchar(150) NOT NULL,
-  `partidos_jugados` int(11) NOT NULL,
-  `ganados` int(11) NOT NULL,
-  `perdidos` int(11) NOT NULL,
-  `empatados` int(11) NOT NULL,
-  `goles` int(11) NOT NULL,
-  `puntos` int(11) NOT NULL
+  `nombre` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `equipos`
 --
 
-INSERT INTO `equipos` (`id_equipo`, `nombre`, `partidos_jugados`, `ganados`, `perdidos`, `empatados`, `goles`, `puntos`) VALUES
-(1, 'birra fc', 5, 1, 4, 0, 3, 3),
-(2, 'fernet', 5, 4, 1, 0, 7, 12),
-(3, 'gin fc', 5, 2, 2, 1, 6, 7),
-(4, 'viejas fc', 5, 3, 1, 1, 4, 10);
+INSERT INTO `equipos` (`id_equipo`, `nombre`) VALUES
+(1, 'birra fc'),
+(2, 'fernet'),
+(3, 'gin fc'),
+(4, 'viejas fc');
 
 -- --------------------------------------------------------
 
@@ -161,8 +155,8 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `fixture`
 --
 ALTER TABLE `fixture`
-  ADD CONSTRAINT `fixture_ibfk_1` FOREIGN KEY (`id_equipo1`) REFERENCES `equipos` (`id_equipo`),
-  ADD CONSTRAINT `fixture_ibfk_2` FOREIGN KEY (`id_equipo2`) REFERENCES `equipos` (`id_equipo`);
+  ADD CONSTRAINT `fixture_ibfk_1` FOREIGN KEY (`ID_Equipo1`) REFERENCES `equipos` (`id_equipo`),
+  ADD CONSTRAINT `fixture_ibfk_2` FOREIGN KEY (`ID_Equipo2`) REFERENCES `equipos` (`id_equipo`);
 
 --
 -- Filtros para la tabla `jugadores`

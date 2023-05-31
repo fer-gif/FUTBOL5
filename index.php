@@ -32,12 +32,8 @@ switch ($params[0]) {
             case 'eliminar':
                 break;
             case 'ver':
-                $control = new JugadorController();
-                $control->mostrarJugadoresxEquipo($params[2]);
-                break;
-            case 'registrar':
-                $control = new EquipoController();
-                $control->registrarEquipo();
+                $control = new TorneoController();
+                $control->mostrarEquipo($params[2]);
                 break;
         }
         break;
