@@ -1,7 +1,7 @@
 <?php
-require_once 'modelPrueba/PartidoModel.php';
+require_once 'model/PartidoModel.php';
 require_once 'model/Equipo.php';
-require_once 'model/TorneoModel.php';
+require_once 'model/EquiposModel.php';
 
 class PartidoController
 {
@@ -12,7 +12,7 @@ class PartidoController
     public function __construct()
     {
         $this->equipoView = new EquipoView();
-        $this->equipoModel = new TorneoModel();
+        $this->equipoModel = new EquiposModel();
         $this->partidoModel = new PartidoModel();
     }
     /**
@@ -26,7 +26,7 @@ class PartidoController
 
     public function armarTablaPosiciones()
     {
-        $equipos = $this->equipoModel->getTorneo();
+        $equipos = $this->equipoModel->getEquipos();
         $tabla = [];
         foreach ($equipos as $equipo) {
             $partidos = $this->partidoModel->getPartidosxEquipo($equipo->getIdEquipo());
@@ -48,14 +48,6 @@ class PartidoController
         });
         return $tabla;
     }
-
-
-    /*public function getPartidosxEquipo($idEquipo)
-    {
-        $partidos = $this->partidoModel->getPartidosxEquipo($idEquipo);
-        var_dump($partidos);
-        die();
-    }*/
 
     public function calcularEstadisticaEquipo($equipo, $partidos)
     {
@@ -83,5 +75,25 @@ class PartidoController
         $equipo1->setGF($equipo1->getGF() + $goles1);
         $equipo1->setGC($equipo1->getGC() + $goles2);
         return $equipo1;
+    }
+
+    public function registrarPartido()
+    {
+        if (!empty($_REQUEST['golesEquipo1']) && !empty($_REQUEST['golesEquipo2'])) {
+            $equipo1 = $_REQUEST['equipo1'];
+            $equipo2 = $_REQUEST['equipo2'];
+            if ($equipo1 != $equipo2) {
+                $golese1 = $_REQUEST['golesEquipo1'];
+                $golese2 = $_REQUEST['golesEquipo2'];
+                $fecha = $_REQUEST['fecha'];
+                if ($golese1 < 0 || $golese2 < 0)
+                    $result = "Lo goles deben ser positivos o 0";
+                else
+                    $result = $this->partidoModel->registrarPartido($equipo1, $equipo2, $golese1, $golese2, $fecha);
+            } else
+                $result = "ERROR; EQUIPOS IGUALES";
+            print($result);
+            die();
+        }
     }
 }

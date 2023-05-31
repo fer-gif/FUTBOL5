@@ -39,4 +39,20 @@ class PartidoModel
         $conexion = null;
         return $partidos;
     }
+    /**
+     * Recibe 2 equipos, con sus respectivos goles en una fecha
+     */
+    public function registrarPartido($equipo1, $equipo2, $golesEquipo1, $golesEquipo2, $fecha)
+    {
+        $conexion = $this->connection->getConnection();
+        try {
+            $sentence = $conexion->prepare("INSERT INTO fixture(id_equipo1,id_equipo2,goles_equipo1,goles_equipo2,fecha) VALUES(?,?,?,?,?)");
+            $sentence->execute(array($equipo1, $equipo2, $golesEquipo1, $golesEquipo2, $fecha));
+            $lastId = $conexion->lastInsertId();
+        } catch (PDOException $e) {
+            $lastId = 0;
+        }
+        $conexion = null;
+        return $lastId;
+    }
 }

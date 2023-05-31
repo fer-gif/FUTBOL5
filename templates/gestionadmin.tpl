@@ -1,5 +1,6 @@
 {include file="header.tpl"}
 <main>
+
     <div class="registroEquipo">
         <h3>Registrar un nuevo equipo</h3>
         <form action="equipo/registrar" method="post" class="formEditar">
@@ -14,6 +15,32 @@
 
         {include file="formregistrarjugador.tpl"}
 
+    </div>
+    <div class="registroEquipo">
+        <h3>Registrar nuevo usuario</h3>
+        <form action="usuario/registrar" method="post" class="formEditar">
+            <label for="nombreUsuario">Nombre del usuario</label>
+            <input type="text" name="nombreUsuario" id="">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="">
+            <label for="permisos">Seleccione el tipo de usuario</label>
+            <select name="permisos" id="">
+                <option value="0">Seleccione uno...</option>
+                <option value="1">Usuario</option>
+                <option value="3">Capitán</option>
+                <option value="5">Administrador</option>
+            </select>
+            <p class="infoUsuario">Si el usuario es Capitan de un equipo, seleccione el equipo al que pertenece</p>
+            <label for="equipo">Equipo</label>
+            <select name="equipo" id="">
+                {foreach from=$equipos item=equipo}
+                <option value="{$equipo->getIdEquipo()}">{$equipo->getNombre()}</option>
+                {/foreach}
+            </select>
+            <input type="submit" value="Registrar" class="btnSubmit">
+        </form>
     </div>
 </main>
 {include file="footer.tpl"}

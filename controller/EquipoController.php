@@ -1,19 +1,15 @@
 <?php
 require_once 'view/EquipoView.php';
-require_once 'modelPrueba/EquipoModel.php';
-require_once('model/TorneoModel.php');
-
+require_once 'model/EquiposModel.php';
 
 class EquipoController
 {
     private $equipoView;
     private $equipoModel;
-    private $equipoModelPrueba;
     public function __construct()
     {
         $this->equipoView = new EquipoView();
-        $this->equipoModel = new TorneoModel();
-        $this->equipoModelPrueba = new EquipoModel();
+        $this->equipoModel = new EquiposModel();
     }
 
     /**
@@ -22,7 +18,7 @@ class EquipoController
      */
     public function mostrarEquipos()
     {
-        $equipos = $this->equipoModel->getTorneo();
+        $equipos = $this->equipoModel->getEquipos();
         $this->equipoView->renderEquipos($equipos);
     }
 
@@ -43,25 +39,7 @@ class EquipoController
     }
     public function mostrarFixture()
     {
-        $equipos = $this->equipoModel->getTorneo();
+        $equipos = $this->equipoModel->getEquipos();
         $this->equipoView->renderFixture($equipos);
-    }
-    public function registrarPartido()
-    {
-        if (!empty($_REQUEST['golesEquipo1']) && !empty($_REQUEST['golesEquipo2'])) {
-            $equipo1 = $_REQUEST['equipo1'];
-            $equipo2 = $_REQUEST['equipo2'];
-            if ($equipo1 != $equipo2) {
-                $golese1 = $_REQUEST['golesEquipo1'];
-                $golese2 = $_REQUEST['golesEquipo2'];
-                if ($golese1 < 0 || $golese2 < 0)
-                    $result = "Lo goles deben ser positivos o 0";
-                else
-                    $result = $this->equipoModelPrueba->registrarPartido($equipo1, $equipo2, $golese1, $golese2);
-            } else
-                $result = "ERROR; EQUIPOS IGUALES";
-            print($result);
-            die();
-        }
     }
 }

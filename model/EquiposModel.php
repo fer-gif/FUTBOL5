@@ -1,19 +1,20 @@
 <?php
 require_once 'model/ConexionModel.php';
 
-class EquiposModel{
- 
+class EquiposModel
+{
+
     private $connection;
 
     public function __construct()
     {
-        $this->connection=new Conexion();
+        $this->connection = new Conexion();
     }
 
-    public function getTorneo()
+    public function getEquipos()
     {
         $c = $this->connection->getConnection();
-        $sentence = $c->prepare("select * from equipos ORDER BY puntos ASC");
+        $sentence = $c->prepare("select * from equipos");
         $sentence->execute();
         $sentence->setFetchMode(PDO::FETCH_OBJ);
         $positions = $sentence->fetchAll();
@@ -42,7 +43,4 @@ class EquiposModel{
         $c = null;
         return $lastId;
     }
-
-
 }
-?>

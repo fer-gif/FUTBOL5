@@ -4,9 +4,9 @@ define("BASE_URL", 'http://' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_S
 
 require_once('controller/EquipoController.php');
 require_once('controller/JugadorController.php');
-require_once('controller/AdminController.php');
-require_once('controller/UserController.php');
+require_once('controller/TorneoController.php');
 require_once('controller/PartidoController.php');
+require_once('controller/UserController.php');
 
 
 if (!empty($_REQUEST['action']))
@@ -32,8 +32,12 @@ switch ($params[0]) {
             case 'eliminar':
                 break;
             case 'ver':
-                $control = new TorneoController();
-                $control->mostrarEquipo($params[2]);
+                $control = new JugadorController();
+                $control->mostrarJugadoresxEquipo($params[2]);
+                break;
+            case 'registrar':
+                $control = new EquipoController();
+                $control->registrarEquipo();
                 break;
         }
         break;
@@ -41,11 +45,11 @@ switch ($params[0]) {
         switch ($params[1]) {
             case 'editar':
                 $control = new JugadorController();
-                $control->mostrarEditarJugador($params[1]);
+                $control->mostrarEditarJugador($params[2]);
                 break;
             case 'update':
                 $control = new JugadorController();
-                $control->editarJugador($params[1]);
+                $control->editarJugador($params[2]);
                 break;
             case 'eliminar':
                 break;
@@ -56,11 +60,11 @@ switch ($params[0]) {
         }
         break;
     case 'admin':
-        $control = new AdminController();
+        $control = new TorneoController();
         $control->mostrarGestionAdmin();
         break;
     case 'miequipo':
-        $control = new UserController();
+        $control = new TorneoController();
         $control->mostrarMiEquipo();
         break;
     case 'fixture':
@@ -70,6 +74,17 @@ switch ($params[0]) {
     case 'login':
         $control = new UserController();
         $control->mostrarLogin();
+        break;
+    case 'ingreso':
+        $control = new UserController();
+        $control->procesarLogin();
+        break;
+    case 'usuario':
+        switch ($params[1]) {
+            case 'registrar':
+                $control = new UserController();
+                $control->registrarUsuario();
+        }
         break;
     case 'registrarPartido':
         $control = new EquipoController();

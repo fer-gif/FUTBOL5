@@ -15,7 +15,7 @@ class EquipoView
     public function renderHome($equipos)
     {
         //$equipos = new EquiposTest();
-        $this->torneoView->cargarHeader($this->plantilla, "HOME", true, true);
+        $this->torneoView->cargarHeader($this->plantilla, "HOME");
         $this->plantilla->assign("equipos", $equipos);
         $this->plantilla->display('home.tpl');
     }
@@ -23,14 +23,14 @@ class EquipoView
     public function renderEquipos($equipos)
     {
         //$equipos = new EquiposTest();
-        $this->torneoView->cargarHeader($this->plantilla, "EQUIPOS", true, true);
+        $this->torneoView->cargarHeader($this->plantilla, "EQUIPOS");
         $this->plantilla->assign("equipos", $equipos);
         $this->plantilla->display('equipos.tpl');
     }
 
     public function renderFixture($equipos)
     {
-        $this->torneoView->cargarHeader($this->plantilla, "FIXTURE", false, true);
+        $this->torneoView->cargarHeader($this->plantilla, "FIXTURE");
         $this->plantilla->assign("equipos", $equipos);
         $this->plantilla->display('fixture.tpl');
     }

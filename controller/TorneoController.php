@@ -1,54 +1,29 @@
 <?php
-require_once('view/TorneoView.php');
-require_once('model/TorneoModel.php');
-require_once('model/Equipo.php');
-class TorneoController
+
+require_once 'view/TorneoView.php';
+require_once 'model/EquiposModel.php';
+
+
+class TorneoCOntroller
 {
-    private $vista;
-    private $modelo;
-    private $modeloequipo;
+    private $torneoView;
+    private $adminModel;
 
     public function __construct()
     {
-        $this->vista = new TorneoView();
-        $this->modelo = new EquiposModel();
-      
+        $this->torneoView = new TorneoView();
+        $this->adminModel = new EquiposModel();
     }
 
-    public function mostrarHome()
-    {
-        $equipos = $this->modelo->getTorneo();
-        $this->vista->renderHome($equipos);
-    }
-    public function mostrarEquipos()
-    {
-        $this->vista->renderEquipos();
-    }
-    public function mostrarEquipo($id)
-    {
-        $this->modeloequipo->getEquipo($id);
-        $this->vista->renderEquipo($id);
-    }
-    public function mostrarEditarJugador($id)
-    {
-        $jugador = null;
-        $this->vista->renderEditarJugador($jugador);
-    }
-    public function editarJugador()
-    {
-        if (!empty($_REQUEST['nombre']) && !empty($_REQUEST['apellido']) && !empty($_REQUEST['posicion'])) {
-            echo $_REQUEST['nombre'];
-        }
-    }
+
     public function mostrarGestionAdmin()
     {
-        $this->vista->renderAdmin();
+        $equipos = $this->adminModel->getEquipos();
+        $this->torneoView->renderAdmin($equipos);
     }
-    public function registrarEquipo()
+
+    public function mostrarMiEquipo()
     {
-        if (isset($_REQUEST['nombreEquipo']) && (!empty($_REQUEST['nombreEquipo']))) {
-            $nombre = $_REQUEST['nombreEquipo'];
-            $this->modelo->addEquipo($nombre);
-        }
+        $this->torneoView->renderMiEquipo();
     }
 }

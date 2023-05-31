@@ -1,9 +1,9 @@
 <?php
 
 require_once 'view/jugadorView.php';
-require_once 'modelPrueba/JugadorModel.php';
-require_once 'modelPrueba/EquipoModel.php';
-require_once 'model/TorneoModel.php';
+require_once 'model/JugadoresModel.php';
+require_once 'model/EquiposModel.php';
+
 
 class JugadorController
 {
@@ -15,26 +15,37 @@ class JugadorController
     public function __construct()
     {
         $this->jugadorView = new JugadorView();
-        $this->jugadorModel = new JugadorModel();
-        $this->equipoModel = new EquipoModel();
+        $this->jugadorModel = new JugadoresModel();
+        $this->equipoModel = new EquiposModel();
         //$this->jugadorModel = new TorneoModel();
     }
-    public function mostrarJugadoresxEquipo($id)
+    public function mostrarJugadoresxEquipo($idEquipo)
     {
         //$jugadores = $this->jugadorModel->getjugadores($id);
-        $equipo = $this->equipoModel->getEquipo($id);
+        $equipo = $this->jugadorModel->getJugadores($idEquipo);
         $this->jugadorView->renderJugadoresxEquipo($equipo);
     }
 
-    public function mostrarEditarJugador($id)
+    public function mostrarEditarJugador($idJugador)
     {
-        $jugador = null;
+        $jugador = $this->jugadorModel->getJugador($idJugador);
         $this->jugadorView->renderEditarJugador($jugador);
     }
-    public function editarJugador()
-    {
-        if (!empty($_REQUEST['nombre']) && !empty($_REQUEST['apellido']) && !empty($_REQUEST['posicion'])) {
-            echo $_REQUEST['nombre'];
+    public function editarJugador($idJugador)
+    {   //controlas si tiene permisos de admin
+        if (!empty($_REQUEST['nombre']) && !empty($_REQUEST['apellido']) && !empty($_REQUEST['dni'])) {
+            $nombre = $_REQUEST['nombre'];
+            $apellido = $_REQUEST['apellido'];
+            $dni = $_REQUEST['dni'];
+            $tel = $_REQUEST['telefono'];
+            $posicion = $_REQUEST['posicion'];
+            $result = $this->jugadorModel->updateJugador($idJugador, $nombre, $apellido, $dni, $tel, $posicion);
+            if ($result)
+                print("UPDATEADO");
+            else
+                print("WOWOWOWOWOWOW");
+
+            die();
         }
     }
     public function registrarJugador()

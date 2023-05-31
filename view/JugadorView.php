@@ -19,9 +19,7 @@ class JugadorView
      */
     public function renderJugadoresxEquipo($equipo)
     {
-        //$equipos = new EquipoTest();
-        //$equipo = $equipos->getEquipo();
-        $this->torneoView->cargarHeader($this->plantilla, $equipo->getNombre(), true, true);
+        $this->torneoView->cargarHeader($this->plantilla, $equipo->getNombre());
         $this->plantilla->assign("nombreEquipo", $equipo->getNombre());
         $this->plantilla->assign("jugadores", $equipo->getJugadores());
         $this->plantilla->display('equipo.tpl');
@@ -29,11 +27,8 @@ class JugadorView
 
     public function renderEditarJugador($jugador)
     {
-        $equipos = new EquipoTest();
-        $equipo = $equipos->getEquipo();
-        $jug = $equipo->getJugadores()[0];
-        $this->torneoView->cargarHeader($this->plantilla, "EDITAR JUGADOR", true, true);
-        $this->plantilla->assign("jugador", $jug);
+        $this->torneoView->cargarHeader($this->plantilla, "EDITAR JUGADOR");
+        $this->plantilla->assign("jugador", $jugador);
         $this->plantilla->display('editarjugador.tpl');
     }
 }

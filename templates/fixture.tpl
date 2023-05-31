@@ -2,10 +2,6 @@
 <main>
     <form action="registrarPartido" method="POST" class="formFixture">
         <h2>Registrar Resultado de un partido</h2>
-        <div class="fecha">
-            <label for="fecha">Fecha numero:</label>
-            <input type="number" name="fecha" id="" min="1" required placeholder="1">
-        </div>
         <div class="partido">
             <div class="selectEquipo">
                 <label for="equipo1">Equipo 1</label>
@@ -27,6 +23,11 @@
                 </select>
             </div>
         </div>
+        <div class="fecha">
+            <label for="fecha">Fecha numero:</label>
+            <input type="number" name="fecha" id="" min="1" required placeholder="1">
+        </div>
+
         <input type="submit" value="Registrar" class="btnRegistrarPartido">
     </form>
 </main>

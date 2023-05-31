@@ -1,5 +1,5 @@
 <?php
-require_once 'model/conexion.php';
+require_once 'model/ConexionModel.php';
 require_once 'JugadorModel.php';
 require_once 'model/Equipo.php';
 require_once 'model/Jugador.php';

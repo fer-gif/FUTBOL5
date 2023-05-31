@@ -1,11 +1,13 @@
 <?php
 require_once 'model/ConexionModel.php';
 
-class JugadoresModel{
+class JugadoresModel
+{
     private $connection;
 
-    public function __construct(){
-        $this->connection=new Conexion();
+    public function __construct()
+    {
+        $this->connection = new Conexion();
     }
 
     public function addJugador($nombre, $apellido, $dni, $pos, $tel, $equipo)
@@ -18,7 +20,7 @@ class JugadoresModel{
         return $lastId;
     }
 
-    
+
     public function deleteJugador($id)
     {
         $c = $this->connection->getConnection();
@@ -28,15 +30,24 @@ class JugadoresModel{
     }
 
     public function editJugador()
-    {   
+    {
         $c = $this->connection->getConnection();
         $sentence = $c->prepare("UPDATE jugadores
                                 SET nombre = 'NuevoNombre', apellido = 'NuevoApellido', dni = 'NuevoDNI', posicion = 'NuevaPosicion', telefono = 'NuevoTelefono', id_equipo = 'NuevoIDEquipo'
                                 WHERE id_jugador = ?");
         $response = $sentence->execute(array());
         $c = null;
-        
+    }
+
+    public function getJugadores($idEquipo)
+    {
+    }
+
+    public function getJugador($idJugador)
+    {
+    }
+
+    public function updateJugador($idJugador, $nombre, $apellido, $dni, $tel, $posicion)
+    {
     }
 }
-
-?>
