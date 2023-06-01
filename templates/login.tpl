@@ -1,7 +1,7 @@
 {include file="header.tpl"}
 
 <main>
-    <form action="ingreso" method="post" class="formEditar">
+    <form action="login/ingreso" method="post" class="formEditar">
         <label for="usuario">Usuario</label>
         <input type="text" name="nombreUsuario" id="">
         <label for="pass">Password</label>

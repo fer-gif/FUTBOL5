@@ -1,5 +1,6 @@
-<h3>Registrar un nuevo jugador</h3>
+
 <form action="jugador/registrar" method="post" class="formEditar">
+    <h3>Registrar un nuevo jugador</h3>
     {if $admin}
     <label for="equipo">Seleccione equipo</label>
     <select name="equipo" id="">
@@ -7,8 +8,8 @@
         <option value="{$equipo->getIdEquipo()}">{$equipo->getNombre()}</option>
         {/foreach}
     </select>
-    {elseif $user}
-    <h2>EQUIPO</h2>
+    {elseif $capitan}
+    <h2>{$nombreEquipo}</h2>
     {/if}
     <label for="nombreJugador">Nombre</label>
     <input type="tel" name="nombreJugador" id="" required>
@@ -27,3 +28,5 @@
     </select>
     <input type="submit" value="Registrar" class="btnSubmit">
 </form>
+
+db_appfutbol5

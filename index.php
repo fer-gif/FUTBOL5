@@ -72,22 +72,32 @@ switch ($params[0]) {
         $control->mostrarFixture();
         break;
     case 'login':
-        $control = new UserController();
-        $control->mostrarLogin();
-        break;
-    case 'ingreso':
-        $control = new UserController();
-        $control->procesarLogin();
+        if (isset($params[1]))
+            switch ($params[1]) {
+                case 'ingreso':
+                    $control = new UserController();
+                    $control->procesarLogin();
+                    break;
+                case 'logout':
+                    $control = new UserController();
+                    $control->logout();
+                    break;
+            }
+        else {
+            $control = new UserController();
+            $control->mostrarLogin();
+        }
         break;
     case 'usuario':
         switch ($params[1]) {
             case 'registrar':
                 $control = new UserController();
                 $control->registrarUsuario();
+                break;
         }
         break;
     case 'registrarPartido':
-        $control = new EquipoController();
+        $control = new PartidoController();
         $control->registrarPartido();
         break;
 }

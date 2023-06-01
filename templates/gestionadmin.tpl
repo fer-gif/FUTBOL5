@@ -2,8 +2,9 @@
 <main>
 
     <div class="registroEquipo">
-        <h3>Registrar un nuevo equipo</h3>
+        
         <form action="equipo/registrar" method="post" class="formEditar">
+            <h3>Registrar un nuevo equipo</h3>
             <label for="nombreEquipo">Nombre del equipo</label>
             <input type="text" name="nombreEquipo" id="">
             <input type="submit" value="Registrar" class="btnSubmit">
@@ -17,8 +18,9 @@
 
     </div>
     <div class="registroEquipo">
-        <h3>Registrar nuevo usuario</h3>
+        
         <form action="usuario/registrar" method="post" class="formEditar">
+            <h3>Registrar nuevo usuario</h3>
             <label for="nombreUsuario">Nombre del usuario</label>
             <input type="text" name="nombreUsuario" id="">
             <label for="password">Password</label>

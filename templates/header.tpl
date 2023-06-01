@@ -15,14 +15,18 @@
             <ul>
                 <li><a href="{$base}/home">HOME</a></li>
                 <li><a href="{$base}/equipos">EQUIPOS</a></li>     
-                {if $user}
+                {if $capitan}
                 <li><a href="{$base}/miequipo">MI EQUIPO</a></li>
                 {/if}
                 {if $admin}
                 <li><a href="{$base}/fixture">FIXTURE</a></li>
                 <li><a href="{$base}/admin">GESTION</a></li>
                 {/if}
+                {if !$admin && !$capitan}
                 <li><a href="{$base}/login">LOGIN</a></li>
+                {else}
+                <li><a href="{$base}/login/logout">LOGOUT</a></li>
+                {/if}
             </ul>
         </nav>
     </header>

@@ -18,7 +18,7 @@
             <td>{$jugador->getDNI()}</td>
             <td>{$jugador->getTelefono()}</td>
 
-            {if $user}
+            {if $capitan}
             <td>
                 <div class="iconos">
                     <a href="{$base}/jugador/editar/{$jugador->getIdJugador()}"><img

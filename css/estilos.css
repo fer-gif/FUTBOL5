@@ -167,8 +167,9 @@ input {
     box-shadow: #FFFFFF 0 1;
 }
 
-.registroEquipo h3 {
+h3 {
     color: #FFFFFF;
+    text-align: center;
 }
 
 footer {
