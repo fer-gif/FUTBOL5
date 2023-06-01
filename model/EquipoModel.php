@@ -18,12 +18,38 @@ class EquipoModel
         $conexion=$this->connection->getConnection();
         $sentence = $conexion->prepare("SELECT * FROM equipos");
         $sentence->execute();
-        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $sentence->setFetchMode(PDO::FETCH_OBJ);
         $equipos = $sentence->fetchAll();
         $conexion = null;
         return $equipos;
     }
     
+    public function getEquipo($idEquipo)
+    {
+        $conexion=$this->connection->getConnection();
+        $sentence = $conexion->prepare("SELECT * FROM equipos
+                                        WHERE id_equipo=?");
+        $sentence->execute(array($idEquipo));
+
+        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $equipo = $sentence->fetchAll();
+        
+        return $equipo;
+    }
+
+    public function getEquipoByName($idEquipo)
+    {
+        $conexion=$this->connection->getConnection();
+        $sentence = $conexion->prepare("SELECT nombre FROM equipos
+                                        WHERE id_equipo=?");
+        $sentence->execute(array($idEquipo));
+
+        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $nombreEquipo = $sentence->fetchAll();
+        
+        return $this->nombre=$nombreEquipo;
+
+    }
 
     public function addEquipo($nombre)
     {
@@ -41,30 +67,20 @@ class EquipoModel
         $sentence = $conexion->prepare("DELETE FROM equipos WHERE id_equipo=?");
         $response = $sentence->execute(array($idEquipo));
         $conexion = null;
+
+        return $response;
     }
 
-    public function updateEquipo($idEquipo)
+    public function updateEquipo($nombre)
     {
+        $conexion = $this->connection->getConnection();
+        $sentence = $conexion->prepare("UPDATE equipos
+                                    SET nombre = ?
+                                    WHERE id_equipo = ?");
+        $response = $sentence->execute(array($nombre));
+        $conexion = null;
 
+        return $response;
     }
-
-    public function getEquipo($idEquipo)
-    {
-        $conexion=$this->connection->getConnection();
-        $sentence = $conexion->prepare("SELECT * FROM equipos
-                                        WHERE id_equipo=?");
-        $sentence->execute(array($idEquipo));
-
-        $sentence->setFetchMode(PDO::FETCH_ASSOC);
-        $equipo = $sentence->fetchAll();
-        
-        return $equipo;
-    }
-    
-
-
-
-
-    public function 
 
 }
