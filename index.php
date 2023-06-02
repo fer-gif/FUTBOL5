@@ -17,15 +17,15 @@ else
 $params = explode("/", $accion);
 
 switch ($params[0]) {
-    case 'home':
+        /* case 'home':
         $control = new PartidoController();
         $control->mostrarHome();
-        break;
-    case 'equipos':
+        break;*/
+        /*case 'equipos':
         $control = new EquipoController();
         $control->mostrarEquipos();
-        break;
-    case 'equipo':
+        break;*/
+        /*case 'equipo':
         switch ($params[1]) {
             case 'editar':
                 break;
@@ -40,8 +40,8 @@ switch ($params[0]) {
                 $control->registrarEquipo();
                 break;
         }
-        break;
-    case 'jugador':
+        break;*/
+        /*case 'jugador':
         switch ($params[1]) {
             case 'editar':
                 $control = new JugadorController();
@@ -58,20 +58,20 @@ switch ($params[0]) {
                 $control->registrarJugador();
                 break;
         }
-        break;
-    case 'admin':
+        break;*/
+        /* case 'admin':
         $control = new TorneoController();
         $control->mostrarGestionAdmin();
-        break;
-    case 'miequipo':
+        break;*/
+        /*case 'miequipo':
         $control = new TorneoController();
         $control->mostrarMiEquipo();
-        break;
-    case 'fixture':
+        break;*/
+        /*case 'fixture':
         $control = new EquipoController();
         $control->mostrarFixture();
-        break;
-    case 'login':
+        break;*/
+        /*case 'login':
         if (isset($params[1]))
             switch ($params[1]) {
                 case 'ingreso':
@@ -87,17 +87,17 @@ switch ($params[0]) {
             $control = new UserController();
             $control->mostrarLogin();
         }
-        break;
-    case 'usuario':
+        break;*/
+        /*case 'usuario':
         switch ($params[1]) {
             case 'registrar':
                 $control = new UserController();
                 $control->registrarUsuario();
                 break;
         }
-        break;
-    case 'registrarPartido':
+        break;*/
+        /*case 'registrarPartido':
         $control = new PartidoController();
         $control->registrarPartido();
-        break;
+        break;*/
 }
