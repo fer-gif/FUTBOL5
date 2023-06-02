@@ -47,7 +47,7 @@ class JugadorModel
                                         WHERE id_jugador=?");
         $sentence->execute(array($id));
 
-        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $sentence->setFetchMode(PDO::FETCH_OBJ);
         $jugador = $sentence->fetchAll();
         
         return $jugador;
@@ -89,6 +89,71 @@ class JugadorModel
 
         return $response;
 
+    }
+
+    public function getNombre($id_jugador)
+    {
+        $conexion=$this->connection->getConnection();
+        $sentence = $conexion->prepare("SELECT nombre FROM jugadores 
+                                        WHERE id_jugador=?");
+        $sentence->execute(array($id_jugador));
+
+        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $jugadorNombre = $sentence->fetchAll();
+        
+        return $jugadorNombre;
+    }
+
+    public function getApellido($id_jugador)
+    {
+        $conexion=$this->connection->getConnection();
+        $sentence = $conexion->prepare("SELECT apellido FROM jugadores 
+                                        WHERE id_jugador=?");
+        $sentence->execute(array($id_jugador));
+
+        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $jugadorApellido = $sentence->fetchAll();
+        
+        return $jugadorApellido;
+    }
+
+    public function getPosicion($id_jugador){
+        $conexion=$this->connection->getConnection();
+        $sentence = $conexion->prepare("SELECT posicion FROM jugadores 
+                                        WHERE id_jugador=?");
+        $sentence->execute(array($id_jugador));
+
+        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $jugadorPosicion = $sentence->fetchAll();
+        
+        return $jugadorPosicion;
+    }
+
+    public function getDNI($id_jugador)
+    {
+        $conexion=$this->connection->getConnection();
+        $sentence = $conexion->prepare("SELECT dni FROM jugadores 
+                                        WHERE id_jugador=?");
+        $sentence->execute(array($id_jugador));
+
+        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $jugadorDNI = $sentence->fetchAll();
+        
+        return $jugadorDNI;
+    }
+
+
+    public function getTelefono($id_jugador)
+    {
+        $conexion=$this->connection->getConnection();
+        $sentence = $conexion->prepare("SELECT telefono FROM jugadores 
+                                        WHERE id_jugador=?");
+        $sentence->execute(array($id_jugador));
+
+        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $jugadorTelefono = $sentence->fetchAll();
+        
+        return $jugadorTelefono;
     }
 
     

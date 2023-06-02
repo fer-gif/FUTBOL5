@@ -1,5 +1,6 @@
 <?php
 require_once 'libs/smarty/Smarty.class.php';
+require_once '../templates';
 class EquipoView
 {
     private $plantilla;
@@ -14,14 +15,29 @@ class EquipoView
     public function renderHome($equipos)
     {
         $this->plantilla->assign("equipos",$equipos);
+        $this->plantilla->display('templates/home.tpl');
 
     }
 
-    public function renderEquipos()
-    {}
+    public function renderEquipos($equipos)
+    {
+        $this->plantilla->assign("equipos",$equipos);
+        $this->plantilla->display('templates/equipos.tpl');
+    }
 
-    public function renderFixture()
-    {}
+    public function renderEquipo($jugadores)
+    {
+        $this->plantilla->assign("jugadores",$jugadores);
+        $this->plantilla->display('templates/equipo.tpl');
+    } 
+
+    public function renderFixture($equipos)
+    {
+        $this->plantilla->assign("equipos",$equipos);
+        $this->plantilla->assign('templates/fixture.tpl');
+    }
+
+    
 }
 
 ?>

@@ -26,6 +26,9 @@ class PartidoModel
     public function updatePartido()
     {}
 
+
+
+    
     public function getResultado()
     {}
 
