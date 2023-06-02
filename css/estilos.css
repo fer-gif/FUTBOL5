@@ -258,3 +258,12 @@ footer {
 .infoUsuario {
     margin-top: 10px;
 }
+
+.mensaje {
+    margin: 20px 0;
+}
+
+.mensaje p {
+    color: #FFFFFF;
+    text-align: center;
+}
