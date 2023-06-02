@@ -82,7 +82,7 @@ class JugadorModel
     {
         $conexion = $this->connection->getConnection();
         $sentence = $conexion->prepare("UPDATE jugadores
-                                    SET nombre = ? OR apellido=? OR dni=? OR telefono=? OR posicion=? OR id_equipo=?
+                                    SET nombre = ? , apellido=? , dni=? , telefono=? , posicion=? , id_equipo=?
                                     WHERE id_jugador = ?");
         $response = $sentence->execute(array($nombre,$apellido,$dni,$telefono,$posicion,$id_equipo));
         $conexion = null;
@@ -90,7 +90,7 @@ class JugadorModel
         return $response;
 
     }
-
+    /*
     public function getNombre($id_jugador)
     {
         $conexion=$this->connection->getConnection();
@@ -155,7 +155,7 @@ class JugadorModel
         
         return $jugadorTelefono;
     }
-
+*/
     
 
 

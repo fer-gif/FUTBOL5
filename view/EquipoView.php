@@ -24,7 +24,8 @@ class EquipoView
         $this->plantilla->assign("equipos",$equipos);
         $this->plantilla->display('templates/equipos.tpl');
     }
-
+    
+    /* va en jugadorVIEW*/
     public function renderEquipo($jugadores)
     {
         $this->plantilla->assign("jugadores",$jugadores);
