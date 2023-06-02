@@ -16,14 +16,14 @@
         {foreach name="tablaequipos" from=$equipos item=equipo}
         <tr class="filaTablaPosicion">
             <td>{$smarty.foreach.tablaequipos.iteration}</td>
-            <td>{$equipo->getNombre()}</td>
-            <td>{$equipo->getPuntos()}</td>
-            <td>{$equipo->getPartidos_jugados()}</td>
-            <td>{$equipo->getPG()}</td>
-            <td>{$equipo->getPE()}</td>
-            <td>{$equipo->getPP()}</td>
-            <td>{$equipo->getGF()}</td>
-            <td>{$equipo->getGC()}</td>
+            <td>{$equipo["nombre"]}</td>
+            <td>{$equipo["puntos"]}</td>
+            <td>{$equipo["pj"]}</td>
+            <td>{$equipo["pg"]}</td>
+            <td>{$equipo["pe"]}</td>
+            <td>{$equipo["pp"]}</td>
+            <td>{$equipo["gf"]}</td>
+            <td>{$equipo["gc"]}</td>
 
         </tr>
         {/foreach}

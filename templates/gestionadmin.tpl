@@ -1,8 +1,11 @@
 {include file="header.tpl"}
 <main>
-
+    {if isset($mensaje)}
+    <div class="mensaje">
+        <p>{$mensaje}</p>
+    </div>
+    {/if}
     <div class="registroEquipo">
-        
         <form action="equipo/registrar" method="post" class="formEditar">
             <h3>Registrar un nuevo equipo</h3>
             <label for="nombreEquipo">Nombre del equipo</label>
@@ -10,15 +13,16 @@
             <input type="submit" value="Registrar" class="btnSubmit">
         </form>
     </div>
-    <!--ALTA DE USUARIOS-->
+
 
     <div class="registroEquipo">
 
         {include file="formregistrarjugador.tpl"}
 
     </div>
+    <!--ALTA DE USUARIOS-->
     <div class="registroEquipo">
-        
+
         <form action="usuario/registrar" method="post" class="formEditar">
             <h3>Registrar nuevo usuario</h3>
             <label for="nombreUsuario">Nombre del usuario</label>

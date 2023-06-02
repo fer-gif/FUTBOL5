@@ -29,4 +29,3 @@
     <input type="submit" value="Registrar" class="btnSubmit">
 </form>
 
-db_appfutbol5

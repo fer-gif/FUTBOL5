@@ -17,10 +17,10 @@ else
 $params = explode("/", $accion);
 
 switch ($params[0]) {
-        /* case 'home':
+    case 'home':
         $control = new PartidoController();
         $control->mostrarHome();
-        break;*/
+        break;
         /*case 'equipos':
         $control = new EquipoController();
         $control->mostrarEquipos();
@@ -39,6 +39,10 @@ switch ($params[0]) {
                 $control = new EquipoController();
                 $control->registrarEquipo();
                 break;
+            default:
+                    header("HTTP/1.0 404 Not Found");
+                    print("No existe");
+                    break;
         }
         break;*/
         /*case 'jugador':
@@ -57,12 +61,16 @@ switch ($params[0]) {
                 $control = new JugadorController();
                 $control->registrarJugador();
                 break;
+            default:
+                    header("HTTP/1.0 404 Not Found");
+                    print("No existe");
+                    break;
         }
         break;*/
-        /* case 'admin':
-        $control = new TorneoController();
+    case 'admin':
+        $control = new UserController();
         $control->mostrarGestionAdmin();
-        break;*/
+        break;
         /*case 'miequipo':
         $control = new TorneoController();
         $control->mostrarMiEquipo();
@@ -71,7 +79,7 @@ switch ($params[0]) {
         $control = new EquipoController();
         $control->mostrarFixture();
         break;*/
-        /*case 'login':
+    case 'login':
         if (isset($params[1]))
             switch ($params[1]) {
                 case 'ingreso':
@@ -82,22 +90,34 @@ switch ($params[0]) {
                     $control = new UserController();
                     $control->logout();
                     break;
+                default:
+                    header("HTTP/1.0 404 Not Found");
+                    print("No existe");
+                    break;
             }
         else {
             $control = new UserController();
             $control->mostrarLogin();
         }
-        break;*/
-        /*case 'usuario':
+        break;
+    case 'usuario':
         switch ($params[1]) {
             case 'registrar':
                 $control = new UserController();
                 $control->registrarUsuario();
                 break;
+            default:
+                header("HTTP/1.0 404 Not Found");
+                print("No existe");
+                break;
         }
-        break;*/
+        break;
         /*case 'registrarPartido':
         $control = new PartidoController();
         $control->registrarPartido();
         break;*/
+    default:
+        header("HTTP/1.0 404 Not Found");
+        print("No existe");
+        //ACA VA LA FUNCION DE PAGINA NO ENCONTRADA
 }
