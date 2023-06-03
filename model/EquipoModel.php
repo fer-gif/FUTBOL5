@@ -2,20 +2,16 @@
 require_once 'model/Conexion.php';
 class EquipoModel
 {
-    private $nombre;
-    private $id_equipo;
     private $connection;
 
-    public function __construct($id_equipo,$nombre)
+    public function __construct()
     {
-        $this->connection=new Conexion();
-        $this->nombre=$nombre;
-        $this->id_equipo=$id_equipo;        
+        $this->connection = new Conexion();
     }
 
     public function getEquipos()
     {
-        $conexion=$this->connection->getConnection();
+        $conexion = $this->connection->getConnection();
         $sentence = $conexion->prepare("SELECT * FROM equipos");
         $sentence->execute();
         $sentence->setFetchMode(PDO::FETCH_OBJ);
@@ -23,32 +19,18 @@ class EquipoModel
         $conexion = null;
         return $equipos;
     }
-    
+
     public function getEquipo($idEquipo)
     {
-        $conexion=$this->connection->getConnection();
+        $conexion = $this->connection->getConnection();
         $sentence = $conexion->prepare("SELECT * FROM equipos
                                         WHERE id_equipo=?");
         $sentence->execute(array($idEquipo));
 
         $sentence->setFetchMode(PDO::FETCH_ASSOC);
         $equipo = $sentence->fetchAll();
-        
+
         return $equipo;
-    }
-
-    public function getEquipoByName($idEquipo)
-    {
-        $conexion=$this->connection->getConnection();
-        $sentence = $conexion->prepare("SELECT nombre FROM equipos
-                                        WHERE id_equipo=?");
-        $sentence->execute(array($idEquipo));
-
-        $sentence->setFetchMode(PDO::FETCH_ASSOC);
-        $nombreEquipo = $sentence->fetchAll();
-        
-        return $this->nombre=$nombreEquipo;
-
     }
 
     public function addEquipo($nombre)
@@ -82,5 +64,4 @@ class EquipoModel
 
         return $response;
     }
-
 }

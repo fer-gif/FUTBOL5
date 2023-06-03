@@ -1,19 +1,18 @@
 <?php
 require_once 'model/EquipoModel.php';
 require_once 'model/PartidoModel.php';
-require_once 'view/TorneoView.php';
-
+require_once 'view/EquipoView.php';
 class PartidoController
 {
     private $equipoModel;
     private $partidoModel;
-    private $torneoView;
+    private $equipoView;
 
     public function __construct()
     {
         $this->equipoModel = new EquipoModel();
         $this->partidoModel = new PartidoModel();
-        $this->torneoView = new TorneoView();
+        $this->equipoView = new EquipoView();
     }
 
     public function mostrarHome()
