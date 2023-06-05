@@ -43,6 +43,15 @@ class EquipoModel
         return $equipo;
     }
 
+    public function totalEquipos()
+    {
+        $conexion=$this->connection->getConnection();
+        $sentence=$conexion->prepare("SELECT COUNT (*) FROM equipos");
+        $sentence->execute();
+        $totalEquipos=$$sentence->setFetchMode(PDO::FETCH_ASSOC);
+        return $totalEquipos;
+    }
+
     public function addEquipo($nombre)
     {
         $conexion = $this->connection->getConnection();
