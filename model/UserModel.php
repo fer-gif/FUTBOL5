@@ -78,8 +78,19 @@ class UserModel
         return $response;
     }
 
-    public function actualizarUsuario($idUsuario, $email, $permisos)
+    public function updateUsuario($idUsuario, $usuario, $email)
     {
+        $con = $this->conexion->getConnection();
+        $sentence = $con->prepare("UPDATE usuarios
+                                    SET usuario = :usuario , email=:email 
+                                    WHERE id_usuario = :idUsuario");
+        $sentence->bindParam(":usuario", $usuario);
+        $sentence->bindParam(":email", $email);
+        $sentence->bindParam(":idUsuario", $idUsuario);
+        $response = $sentence->execute();
+        $conexion = null;
+
+        return $response;
     }
 
     public function comprobarUsuario($usuario, $pass)

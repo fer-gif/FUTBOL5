@@ -6,7 +6,7 @@
     <div class="containerAdmin">
         <div class="panelAdmin">
             <div class="registroEquipo">
-                <form action="equipos/registrar" method="post" class="formEditar">
+                <form action="{$base}/equipos/registrar" method="post" class="formEditar">
                     <h3>Registrar un nuevo equipo</h3>
                     <label for="nombreEquipo">Nombre del equipo</label>
                     <input type="text" name="nombreEquipo" id="">
@@ -23,7 +23,7 @@
         <div class="panelAdmin">
             <div class="registroEquipo">
 
-                <form action="usuario/registrar" method="post" class="formEditar">
+                <form action="{$base}/usuario/registrar" method="post" class="formEditar">
                     <h3>Registrar nuevo usuario</h3>
                     <label for="nombreUsuario">Nombre del usuario</label>
                     <input type="text" name="nombreUsuario" id="">

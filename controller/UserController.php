@@ -105,8 +105,7 @@ class UserController
         if ($this->sesion->esAdministrador()) {
             $usuario = $this->userModel->getUsuario(null, $idUsuario);
             if ($usuario) {
-                $equipos = $this->equipoModel->getEquipos();
-                $this->userView->renderEditarUsuario($usuario, $equipos);
+                $this->userView->renderEditarUsuario($usuario);
             } else
                 $this->utils->redirigirPagina("admin", "El usuario que intenta editar no existe en la base de datos.");
         } else
@@ -115,6 +114,23 @@ class UserController
 
     public function updateUsuario($idUsuario)
     {
+        if ($this->sesion->esAdministrador())
+            if (!empty($_REQUEST["usuario"])) {
+                $nombreUsuario = $_REQUEST["usuario"];
+                $user = $this->userModel->getUsuario($nombreUsuario);
+                if (!$user || $user->id_usuario == $idUsuario) {
+                    $email = $_REQUEST["email"];
+                    $result = $this->userModel->updateUsuario($idUsuario, $nombreUsuario, $email);
+                    if ($result > 0)
+                        $this->utils->redirigirPagina('admin', "Usuario ediatdo correctamente.");
+                    else
+                        $this->utils->redirigirPagina('admin', "Hubo un error al intentar editar el usuario.");
+                } else
+                    $this->utils->redirigirPagina('usuario/editar/' . $idUsuario, "Ya existe un usuario con ese nombre en la base de datos.");
+            } else
+                $this->utils->redirigirPagina('usuario/editar/' . $idUsuario, "El campo Usuario es obligatorio para editar un usuario.");
+        else
+            $this->utils->redirigirPagina('login');
     }
 
     public function mostrarLogin()

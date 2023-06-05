@@ -1,5 +1,5 @@
 
-<form action="jugadores/registrar" method="post" class="formEditar">
+<form action="{$base}/jugadores/registrar" method="post" class="formEditar">
     <h3>Registrar un nuevo jugador</h3>
     {if $admin}
     <label for="equipo">Seleccione equipo</label>

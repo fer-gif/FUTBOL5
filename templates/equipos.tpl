@@ -11,7 +11,7 @@
                 {else}
                 <img src="{$base}/image/escudos/escudo-generico.png" class="imgEscudo" alt="Escudo del equipo">
                 {/if}
-                <a href="equipos/ver/{$equipo->id_equipo}">{$equipo->nombre}</a>
+                <a href="{$base}/equipos/ver/{$equipo->id_equipo}">{$equipo->nombre}</a>
                 {if $admin}
                 <div class="iconos">
                     <a href="{$base}/equipos/editar/{$equipo->id_equipo}"><img src="{$base}/image/iconseditar.png"></a>

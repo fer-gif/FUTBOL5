@@ -4,27 +4,23 @@
 
     <h1>Editar datos del usuario</h1>
     <form action="{$base}/usuario/update/{$usuario->id_usuario}" method="POST" class="formEditar">
-        <label for="usuario">Nombre</label>
+        <label for="usuario">Usuario</label>
         <input type="text" name="usuario" id="" value="{$usuario->usuario}">
         <label for="apellido">Email</label>
         <input type="text" name="email" id="" value="{$usuario->email}">
         <label for="permisos">Permisos</label>
-        <select name="permisos" id="">
-            <option value="0">Seleccione uno...</option>
-            <option value="1">Usuario</option>
-            <option value="3">Capitán</option>
-            <option value="5">Administrador</option>
-        </select>
-        <label for="equipo">Equipo</label>
-        <select name="equipo" id="">
-            {foreach from=$equipos item=equipo}
-            <option value="{$equipo->id_equipo}" {if $equipo->id_equipo == $usuario->id_equipo}
-                selected
-                {/if}
-                >{$equipo->nombre}</option>
-            {/foreach}
-        </select>
+        {if $usuario->permisos == 1}
+        <span>Usuario</span>
+        {elseif $usuario->permisos == 3}
+        <span>Capitán</span>
+        {elseif $usuario->permisos == 5}
+        <span>Administrador</span>
+        {/if}
 
+        {if $usuario->nombre_equipo}
+        <label for="equipo">Equipo</label>
+        <span>{$usuario->nombre_equipo}</span>
+        {/if}
         <input type="submit" value="Editar" class="btnEditar">
     </form>
 </main>

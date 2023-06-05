@@ -40,11 +40,10 @@ class UserView
         $this->plantilla->assign("usuario", $usuario);
         $this->plantilla->display("usuario.tpl");
     }
-    public function renderEditarUsuario($usuario, $equipos)
+    public function renderEditarUsuario($usuario)
     {
         $this->component->cargarEstructuraHtml($this->plantilla, "Editar usuario");
         $this->plantilla->assign("usuario", $usuario);
-        $this->plantilla->assign("equipos", $equipos);
         $this->plantilla->display("editarusuario.tpl");
     }
     public function renderNoExiste()
