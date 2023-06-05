@@ -7,7 +7,7 @@
             {foreach from=$equipos item=equipo}
             <li>
                 {if $equipo->escudo}
-                <img src="{$base}/image/escudos/{$equipo->escudo}" class="imgEscudo" alt="Escudo del equipo">
+                <img src="{$base}/image/escudos/{$equipo->nombre}/{$equipo->escudo}" class="imgEscudo" alt="Escudo del equipo">
                 {else}
                 <img src="{$base}/image/escudos/escudo-generico.png" class="imgEscudo" alt="Escudo del equipo">
                 {/if}

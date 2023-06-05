@@ -32,6 +32,9 @@ class UserController
                 $user = $this->userModel->getUsuario($nombreUsuario);
                 if (!$user) {
                     $password = $_REQUEST["password"];
+                    $passwordRep = $_REQUEST["passwordRep"];
+                    if ($password != $passwordRep)
+                        $this->utils->redirigirPagina("admin", "Los password ingresado no coinciden.");
                     $email = $_REQUEST["email"];
                     $permisos = $_REQUEST["permisos"];
                     if ($permisos > 0) {

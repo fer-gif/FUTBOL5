@@ -29,6 +29,8 @@
                     <input type="text" name="nombreUsuario" id="">
                     <label for="password">Password</label>
                     <input type="password" name="password" id="">
+                    <label for="passwordRep">Repetir password</label>
+                    <input type="password" name="passwordRep" id="">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="">
                     <label for="permisos">Seleccione el tipo de usuario</label>

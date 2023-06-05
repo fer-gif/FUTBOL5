@@ -75,4 +75,17 @@ class EquipoModel
         $conexion = null;
         return $response;
     }
+
+    public function setEscudo($idEquipo, $escudo)
+    {
+        $conexion = $this->connection->getConnection();
+        $sentence = $conexion->prepare("UPDATE equipos
+                                    SET escudo = :escudo
+                                    WHERE id_equipo = :idEquipo");
+        $sentence->bindParam(":escudo", $escudo);
+        $sentence->bindParam(":idEquipo", $idEquipo);
+        $response = $sentence->execute();
+        $conexion = null;
+        return $response;
+    }
 }

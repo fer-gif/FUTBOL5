@@ -82,13 +82,61 @@ class EquipoController
             $equipo = $this->equipoModel->getEquipo($idEquipo);
             if ($equipo) {
                 $result = $this->equipoModel->deleteEquipo($idEquipo);
-                if ($result)
+                if ($result) {
+                    $this->eliminarCarpetaEquipo($equipo);
                     $this->utils->redirigirPagina("equipos", "Equipo eliminado correctamente.");
-                else
+                } else
                     $this->utils->redirigirPagina("equipos", "Hubo en error al intentar eliminar el equipo.");
             } else
                 $this->utils->redirigirPagina("equipos", "El equipo que intenta eliminar no existe en nuestra base de datos.");
         } else
             $this->utils->redirigirPagina("login");
+    }
+
+    public function editarEscudo($idEquipo)
+    {
+        if ($this->sesion->esCapitan()) {
+            if ($_FILES['escudo']['error'] === UPLOAD_ERR_OK) {
+                $equipo = $this->equipoModel->getEquipo($idEquipo);
+                $nombreTemp = $_FILES['escudo']['tmp_name'];
+                $nombreArchivo = $_FILES['escudo']['name'];
+                $carpetaDestino = getcwd() . '/image/escudos/' . $equipo->nombre;
+                if (!is_dir($carpetaDestino)) {
+                    mkdir($carpetaDestino, 0777, true);
+                } else {
+                    $this->limpiarCarpeta($carpetaDestino);
+                }
+                $rutaDestino = $carpetaDestino . '/' . $nombreArchivo;
+                if (move_uploaded_file($nombreTemp, $rutaDestino)) {
+                    $result = $this->equipoModel->setEscudo($idEquipo, $nombreArchivo);
+                    if ($result)
+                        $this->utils->redirigirPagina("miequipo", "El escudo ha sido actualizado.");
+                    else
+                        $this->utils->redirigirPagina("miequipo", "Hubo un error al actualizar el escudo.");
+                } else {
+                    $this->utils->redirigirPagina("miequipo", "Hubo un error al intentar guardar el escudo.");
+                }
+            } else {
+                $this->utils->redirigirPagina("miequipo", "No se seleccionó un archivo valido.");
+            }
+        } else
+            $this->utils->redirigirPagina("login");
+    }
+    private function eliminarCarpetaEquipo($equipo)
+    {
+        $carpetaDestino = getcwd() . '/image/escudos/' . $equipo->nombre;
+        if (is_dir($carpetaDestino)) {
+            $this->limpiarCarpeta($carpetaDestino);
+            rmdir($carpetaDestino);
+        }
+    }
+    private function limpiarCarpeta($carpeta)
+    {
+        $archivos = glob($carpeta . '/*');
+        foreach ($archivos as $archivo) {
+            if (is_file($archivo)) {
+                unlink($archivo);
+            }
+        }
     }
 }

@@ -85,6 +85,10 @@ switch ($params[0]) {
                     $control = new EquipoController();
                     $control->registrarEquipo();
                     break;
+                case 'editarescudo':
+                    $control = new EquipoController();
+                    $control->editarEscudo($params[2]);
+                    break;
                 default:
                     header("HTTP/1.0 404 Not Found");
                     $control = new UserController();
