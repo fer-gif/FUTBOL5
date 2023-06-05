@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-06-2023 a las 03:25:07
+-- Tiempo de generación: 05-06-2023 a las 17:29:00
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -22,7 +22,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `db_appfutbol5` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `db_appfutbol5`;
-
 -- --------------------------------------------------------
 
 --
@@ -34,6 +33,16 @@ CREATE TABLE `equipos` (
   `nombre` varchar(50) NOT NULL,
   `escudo` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `equipos`
+--
+
+INSERT INTO `equipos` (`id_equipo`, `nombre`, `escudo`) VALUES
+(5, 'Platense', 'platense.png'),
+(11, 'River', NULL),
+(12, 'Boca', NULL),
+(13, 'Racing', 'racing.png');
 
 -- --------------------------------------------------------
 
@@ -48,8 +57,22 @@ CREATE TABLE `jugadores` (
   `apellido` varchar(50) NOT NULL,
   `telefono` int(11) DEFAULT NULL,
   `posicion` varchar(5) NOT NULL,
+  `foto` text DEFAULT NULL,
   `id_equipo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `jugadores`
+--
+
+INSERT INTO `jugadores` (`id_jugador`, `dni`, `nombre`, `apellido`, `telefono`, `posicion`, `foto`, `id_equipo`) VALUES
+(15, 30548888, 'Pipa', 'Garcia', 0, 'DEF', 'sin-foto.png', 5),
+(19, 25145666, 'Mario', 'Diaz', 0, 'POR', 'sin-foto.png', 11),
+(20, 30548999, 'Pity', 'Martinez', 0, 'DEL', 'sin-foto.png', 11),
+(21, 35641222, 'Cristian', 'Zapata', 456999, 'DEF', 'sin-foto.png', 11),
+(22, 34215666, 'Matias', 'Dindart', 0, 'MED', 'sin-foto.png', 11),
+(23, 29065448, 'Franco', 'Figal', 15887888, 'POR', 'sin-foto.png', 12),
+(24, 38156354, 'Javier', 'Villanueba', 0, 'MED', 'sin-foto.png', 12);
 
 -- --------------------------------------------------------
 
@@ -80,6 +103,15 @@ CREATE TABLE `usuarios` (
   `permisos` int(11) NOT NULL,
   `id_equipo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `usuario`, `password`, `email`, `permisos`, `id_equipo`) VALUES
+(1, 'Admin', '$2y$10$g9jCUa3Pu9NxQKIYwNy.gerhYqlOQNtjPx7W0X6jiNXrO/op/iIfq', '', 5, NULL),
+(10, 'capiPlatense', '$2y$10$27gA43ID6O/3NgH77S8dsOV4k3cYautXQXOQxlCEN910l19dfZYSu', '', 3, 5),
+(14, 'capiRacing', '$2y$10$dQ2QI0tiG/UvmAsLm7xprONFQEhKXU5j876JEj/pR8aDbs5L1pj/S', 'racing@gmail.com', 3, 13);
 
 --
 -- Índices para tablas volcadas
@@ -124,13 +156,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `id_equipo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_equipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `jugadores`
 --
 ALTER TABLE `jugadores`
-  MODIFY `id_jugador` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `partidos`
@@ -142,7 +174,7 @@ ALTER TABLE `partidos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
