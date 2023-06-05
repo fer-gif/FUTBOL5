@@ -1,15 +1,17 @@
 {include file="header.tpl"}
 <main>
+    {include file="mensaje.tpl"}
+    
     <h1>Editar datos del jugador</h1>
-    <form action="{$base}/jugador/update/{$jugador->getIdJugador()}" method="POST" class="formEditar">
+    <form action="{$base}/jugadores/update/{$jugador->id_jugador}" method="POST" class="formEditar">
         <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" id="" value="{$jugador->getNombre()}">
+        <input type="text" name="nombre" id="" value="{$jugador->nombre}">
         <label for="apellido">Apellido</label>
-        <input type="text" name="apellido" id="" value="{$jugador->getApellido()}">
+        <input type="text" name="apellido" id="" value="{$jugador->apellido}">
         <label for="dni">DNI</label>
-        <input type="number" name="dni" id="" value="{$jugador->getDNI()}">
+        <input type="number" name="dni" id="" value="{$jugador->dni}">
         <label for="telefono">Telefono</label>
-        <input type="number" name="telefono" id="" value="{$jugador->getTelefono()}">
+        <input type="number" name="telefono" id="" value="{$jugador->telefono}">
         <label for="posicion">Posicion</label>
         <select name="posicion" id="">
             <option value="POR">Arquero</option>

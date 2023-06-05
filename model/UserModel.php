@@ -2,7 +2,6 @@
 require_once 'Conexion.php';
 class UserModel
 {
-    private $key = 'emailEncriptado';
     private $conexion;
 
     public function __construct()
@@ -15,25 +14,68 @@ class UserModel
         $con = $this->conexion->getConnection();
         $sentence = $con->prepare("INSERT INTO usuarios(usuario,password,email,permisos,id_equipo) VALUE (?,?,?,?,?)");
         $password = password_hash($pass, PASSWORD_BCRYPT);
-        /* if (!empty($email)) {
-            $email = openssl_encrypt($email, 'AES-128-ECB', $this->key);
-        }*/
         $sentence->execute(array($usuario, $password, $email, $permisos, $id_equipo));
-        //$lastId=$con->lastInsertId();
+        $lastId = $con->lastInsertId();
+        $con = null;
+        return $lastId;
     }
 
-    public function getUsuario($nombre)
+    public function getUsuarios()
     {
         $con = $this->conexion->getConnection();
-        $sentence = $con->prepare("SELECT nombre,email,permisos,id_equipo FROM usuarios WHERE usuarios.usuario = :usuario");
-        $sentence->bindParam(":usuario", $nombre);
+        $sentence = $con->prepare("SELECT u.id_usuario, u.usuario, e.nombre AS nombre_equipo FROM usuarios u
+                                   LEFT JOIN equipos e ON u.id_equipo = e.id_equipo");
+        $sentence->execute();
+        $result = $sentence->fetchAll(PDO::FETCH_OBJ);
+        $con = null;
+        return $result;
+    }
+    public function getUsuario($nombre = null, $idUsuario = null)
+    {
+        $con = $this->conexion->getConnection();
+        if (isset($nombre)) {
+            $sentence = $con->prepare("SELECT u.id_usuario, u.usuario, u.email, u.permisos, u.id_equipo, e.nombre AS nombre_equipo
+                                        FROM usuarios u 
+                                        LEFT JOIN equipos e ON e.id_equipo = u.id_equipo 
+                                        WHERE u.usuario = :usuario");
+            $sentence->bindParam(":usuario", $nombre);
+        } elseif (isset($idUsuario)) {
+            $sentence = $con->prepare("SELECT u.id_usuario, u.usuario, u.email, u.permisos, u.id_equipo, e.nombre AS nombre_equipo
+                                        FROM usuarios u 
+                                        LEFT JOIN equipos e ON e.id_equipo = u.id_equipo 
+                                        WHERE u.id_usuario = :idUsuario");
+            $sentence->bindParam(":idUsuario", $idUsuario);
+        } else {
+            return null;
+            exit();
+        }
         $sentence->execute();
         $result = $sentence->fetch(PDO::FETCH_OBJ);
         return $result;
     }
 
-    public function eliminarUsuario($idUsuario)
+    public function getUsuarioxEquipo($idEquipo)
     {
+        $con = $this->conexion->getConnection();
+
+        $sentence = $con->prepare("SELECT u.id_usuario, u.usuario, u.email, u.permisos, u.id_equipo
+                                        FROM usuarios u  
+                                        WHERE u.id_equipo = :idEquipo");
+        $sentence->bindParam(":idEquipo", $idEquipo);
+
+        $sentence->execute();
+        $result = $sentence->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
+
+    public function deleteUsuario($idUsuario)
+    {
+        $con = $this->conexion->getConnection();
+        $sentence = $con->prepare("DELETE FROM usuarios WHERE id_usuario=?");
+        $response = $sentence->execute(array($idUsuario));
+        $con = null;
+
+        return $response;
     }
 
     public function actualizarUsuario($idUsuario, $email, $permisos)
@@ -43,7 +85,7 @@ class UserModel
     public function comprobarUsuario($usuario, $pass)
     {
         $con = $this->conexion->getConnection();
-        $sentence = $con->prepare("SELECT u.id_usuario, u.usuario, u.password, u.permisos, e.nombre AS nombre_equipo FROM usuarios u 
+        $sentence = $con->prepare("SELECT u.id_usuario, u.usuario, u.password, u.permisos, e.id_equipo, e.nombre AS nombre_equipo FROM usuarios u 
                                         LEFT JOIN equipos e ON u.id_equipo = e.id_equipo
                                         WHERE u.usuario = :nombre");
         $sentence->bindParam(":nombre", $usuario);

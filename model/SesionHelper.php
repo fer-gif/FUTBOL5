@@ -13,7 +13,7 @@ class SesionHelper
         $_SESSION["permisos"] = $permisos;
         $_SESSION["idUsuario"] = $idUsuario;
         if (isset($equipo))
-            $_SESSION["equipo"] = $equipo;
+            $_SESSION["idEquipo"] = $equipo;
     }
     public function esAdministrador()
     {
@@ -50,6 +50,14 @@ class SesionHelper
         $this->comprobarSession();
         if (isset($_SESSION["usuario"]))
             return ($_SESSION["usuario"]);
+        else
+            return null;
+    }
+    public function getEquipo()
+    {
+        $this->comprobarSession();
+        if (isset($_SESSION["idEquipo"]))
+            return ($_SESSION["idEquipo"]);
         else
             return null;
     }

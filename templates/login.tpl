@@ -1,11 +1,7 @@
 {include file="header.tpl"}
 
 <main>
-    {if isset($mensaje)}
-        <div class="mensaje">
-            <p>{$mensaje}</p>
-        </div>
-    {/if}
+    {include file="mensaje.tpl"}
     <form action="login/ingreso" method="post" class="formEditar">
         <label for="usuario">Usuario</label>
         <input type="text" name="nombreUsuario" id="">

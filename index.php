@@ -21,66 +21,94 @@ switch ($params[0]) {
         $control = new PartidoController();
         $control->mostrarHome();
         break;
-        /*case 'equipos':
-        $control = new EquipoController();
-        $control->mostrarEquipos();
-        break;*/
-        /*case 'equipo':
-        switch ($params[1]) {
-            case 'editar':
-                break;
-            case 'eliminar':
-                break;
-            case 'ver':
-                $control = new JugadorController();
-                $control->mostrarJugadoresxEquipo($params[2]);
-                break;
-            case 'registrar':
-                $control = new EquipoController();
-                $control->registrarEquipo();
-                break;
-            default:
-                    header("HTTP/1.0 404 Not Found");
-                    print("No existe");
+    case 'jugadores':
+        if (isset($params[1]) && !empty($params[1])) {
+            switch ($params[1]) {
+                case 'ver':
+                    $control = new JugadorController();
+                    $control->mostrarJugador($params[2]);
                     break;
-        }
-        break;*/
-        /*case 'jugador':
-        switch ($params[1]) {
-            case 'editar':
-                $control = new JugadorController();
-                $control->mostrarEditarJugador($params[2]);
-                break;
-            case 'update':
-                $control = new JugadorController();
-                $control->editarJugador($params[2]);
-                break;
-            case 'eliminar':
-                break;
-            case 'registrar':
-                $control = new JugadorController();
-                $control->registrarJugador();
-                break;
-            default:
-                    header("HTTP/1.0 404 Not Found");
-                    print("No existe");
+                case 'editar':
+                    $control = new JugadorController();
+                    $control->mostrarEditarJugador($params[2]);
                     break;
+                case 'update':
+                    $control = new JugadorController();
+                    $control->editarJugador($params[2]);
+                    break;
+                case 'eliminar':
+                    $control = new JugadorController();
+                    $control->eliminarJugador($params[2]);
+                    break;
+                case 'eliminarconfirmado':
+                    $control = new JugadorController();
+                    $control->eliminarConfirmado($params[2]);
+                    break;
+                case 'registrar':
+                    $control = new JugadorController();
+                    $control->registrarJugador();
+                    break;
+                default:
+                    header("HTTP/1.0 404 Not Found");
+                    $control = new UserController();
+                    $control->paginaNoExiste();
+            }
+        } else {
+            $control = new JugadorController();
+            $control->mostrarJugadores();
         }
-        break;*/
+        break;
+    case 'equipos':
+        if (isset($params[1]) && !empty($params[1])) {
+            switch ($params[1]) {
+                case 'editar':
+                    $control = new EquipoController();
+                    $control->mostrarEditarEquipo($params[2]);
+                    break;
+                case 'update':
+                    $control = new EquipoController();
+                    $control->editarEquipo($params[2]);
+                    break;
+                case 'eliminar':
+                    $control = new JugadorController();
+                    $control->mostrarEliminarEquipo($params[2]);
+                    break;
+                case 'eliminarconfirmado':
+                    $control = new EquipoController();
+                    $control->eliminarEquipoConfirmado($params[2]);
+                    break;
+                case 'ver':
+                    $control = new JugadorController();
+                    $control->mostrarJugadoresxEquipo($params[2]);
+                    break;
+                case 'registrar':
+                    $control = new EquipoController();
+                    $control->registrarEquipo();
+                    break;
+                default:
+                    header("HTTP/1.0 404 Not Found");
+                    $control = new UserController();
+                    $control->paginaNoExiste();
+            }
+        } else {
+            $control = new EquipoController();
+            $control->mostrarEquipos();
+        }
+        break;
     case 'admin':
         $control = new UserController();
         $control->mostrarGestionAdmin();
         break;
-        /*case 'miequipo':
-        $control = new TorneoController();
+    case 'miequipo':
+        $control = new UserController();
         $control->mostrarMiEquipo();
-        break;*/
+        break;
         /*case 'fixture':
         $control = new EquipoController();
         $control->mostrarFixture();
         break;*/
     case 'login':
-        if (isset($params[1]))
+        if (isset($params[1]) && !empty($params[1]))
             switch ($params[1]) {
                 case 'ingreso':
                     $control = new UserController();
@@ -92,8 +120,8 @@ switch ($params[0]) {
                     break;
                 default:
                     header("HTTP/1.0 404 Not Found");
-                    print("No existe");
-                    break;
+                    $control = new UserController();
+                    $control->paginaNoExiste();
             }
         else {
             $control = new UserController();
@@ -106,18 +134,39 @@ switch ($params[0]) {
                 $control = new UserController();
                 $control->registrarUsuario();
                 break;
+            case 'ver':
+                $control = new UserController();
+                $control->mostrarUsuario($params[2]);
+                break;
+            case 'eliminarconfirmado':
+                $control = new UserCOntroller();
+                $control->eliminarUsuario($params[2]);
+                break;
+            case 'eliminar':
+                $control = new UserController();
+                $control->mostrarEliminarUser($params[2]);
+                break;
+            case 'editar':
+                $control = new UserController();
+                $control->mostrarEditarUsuario($params[2]);
+                break;
+            case 'update':
+                $control = new UserController();
+                $control->updateUsuario($params[2]);
+                break;
             default:
                 header("HTTP/1.0 404 Not Found");
-                print("No existe");
-                break;
+                $control = new UserController();
+                $control->paginaNoExiste();
         }
         break;
         /*case 'registrarPartido':
         $control = new PartidoController();
         $control->registrarPartido();
         break;*/
-    default:
-        header("HTTP/1.0 404 Not Found");
-        print("No existe");
-        //ACA VA LA FUNCION DE PAGINA NO ENCONTRADA
+    default: {
+            $control = new UserController();
+            $control->paginaNoExiste();
+            //header("HTTP/1.0 404 Not Found");
+        }
 }

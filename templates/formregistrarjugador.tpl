@@ -1,22 +1,20 @@
 
-<form action="jugador/registrar" method="post" class="formEditar">
+<form action="jugadores/registrar" method="post" class="formEditar">
     <h3>Registrar un nuevo jugador</h3>
     {if $admin}
     <label for="equipo">Seleccione equipo</label>
     <select name="equipo" id="">
         {foreach from=$equipos item=equipo}
-        <option value="{$equipo->getIdEquipo()}">{$equipo->getNombre()}</option>
+        <option value="{$equipo->id_equipo}">{$equipo->nombre}</option>
         {/foreach}
     </select>
-    {elseif $capitan}
-    <h2>{$nombreEquipo}</h2>
     {/if}
     <label for="nombreJugador">Nombre</label>
-    <input type="tel" name="nombreJugador" id="" required>
+    <input type="tel" name="nombreJugador" id="">
     <label for="apellidoJugador">Apellido</label>
-    <input type="tel" name="apellidoJugador" id="" required>
+    <input type="tel" name="apellidoJugador" id="">
     <label for="dni">DNI</label>
-    <input type="number" name="dni" id="" required>
+    <input type="number" name="dni" id="">
     <label for="telefono">Teléfono</label>
     <input type="number" name="telefono" id="">
     <label for="posicion">Seleccione una posición</label>
@@ -28,4 +26,3 @@
     </select>
     <input type="submit" value="Registrar" class="btnSubmit">
 </form>
-

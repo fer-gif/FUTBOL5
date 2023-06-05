@@ -12,23 +12,19 @@ class EquipoView
         $this->component = new ComponentHelper();
     }
 
-    public function renderHome($equipos)
-    {
-        $this->component->cargarEstructuraHtml($this->plantilla, "Home");
-        $this->plantilla->assign("equipos", $equipos);
-        $this->plantilla->display("home.tpl");
-    }
+
 
     public function renderEquipos($equipos)
     {
+        $this->component->cargarEstructuraHtml($this->plantilla, "Equipos");
         $this->plantilla->assign("equipos", $equipos);
-        $this->plantilla->display('templates/equipos.tpl');
+        $this->plantilla->display('equipos.tpl');
     }
 
-    /* va en jugadorVIEW*/
-    public function renderEquipo($jugadores)
+    public function renderEditarEquipo($equipo)
     {
-        $this->plantilla->assign("jugadores", $jugadores);
-        $this->plantilla->display('templates/equipo.tpl');
+        $this->component->cargarEstructuraHtml($this->plantilla, "Editar equipo");
+        $this->plantilla->assign("equipo", $equipo);
+        $this->plantilla->display('editarequipo.tpl');
     }
 }

@@ -1,6 +1,15 @@
 {include file="header.tpl"}
 <main>
-    <h2 class="nombreEquipo">{$nombreEquipo}</h2>
+    {if isset($confirmacion)}
+        <div class="confirmacion">
+            <p>Desea ELIMINAR el equipo y sus jugadores?</p>
+            <div class="btnConfirm">
+                <a href="{$base}/equipos/eliminarconfirmado/{$equipo->id_equipo}">Si</a>
+                <a href="{$base}/equipos/ver/{$equipo->id_equipo}">No</a>
+            </div>
+        </div>
+    {/if}
+    <h2 class="nombreEquipo">{$equipo->nombre}</h2>
     <table class="tablaPosiciones">
         <thead class="theadPosiciones">
             <th>Pos</th>
@@ -12,18 +21,21 @@
         </thead>
         {foreach from=$jugadores item=jugador}
         <tr class="filaTablaPosicion">
-            <td>{$jugador->getPosicion()}</td>
-            <td>{$jugador->getNombre()}</td>
-            <td>{$jugador->getApellido()}</td>
-            <td>{$jugador->getDNI()}</td>
-            <td>{$jugador->getTelefono()}</td>
-
-            {if $capitan}
+            <td>{$jugador["posicion"]}</td>
+            <td>{$jugador["nombre"]}</td>
+            <td>{$jugador["apellido"]}</td>
+            <td>{$jugador["dni"]}</td>
+            {if $jugador["telefono"]!=0}
+                <td>{$jugador["telefono"]}</td>
+            {else}
+                <td>-</td>
+            {/if}
+            {if $admin}
             <td>
                 <div class="iconos">
-                    <a href="{$base}/jugador/editar/{$jugador->getIdJugador()}"><img
+                    <a href='{$base}/jugadores/editar/{$jugador["id_jugador"]}'><img
                             src="{$base}/image/iconseditar.png"></a>
-                    <a href="{$base}/jugador/eliminar/{$jugador->getIdJugador()}"><img
+                    <a href='{$base}/jugadores/eliminar/{$jugador["id_jugador"]}'><img
                             src="{$base}/image/iconsBorrar.png"></a>
                 </div>
             </td>

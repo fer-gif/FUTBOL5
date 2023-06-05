@@ -20,15 +20,25 @@ class EquipoModel
         return $equipos;
     }
 
-    public function getEquipo($idEquipo)
+    public function getEquipo($idEquipo = null, $nombre = null)
     {
         $conexion = $this->connection->getConnection();
-        $sentence = $conexion->prepare("SELECT * FROM equipos
-                                        WHERE id_equipo=?");
-        $sentence->execute(array($idEquipo));
+        if (isset($idEquipo)) {
+            $sentence = $conexion->prepare("SELECT * FROM equipos
+            WHERE id_equipo=:idEquipo");
+            $sentence->bindParam(":idEquipo", $idEquipo);
+        } elseif (isset($nombre)) {
+            $sentence = $conexion->prepare("SELECT * FROM equipos
+            WHERE nombre=:nombre");
+            $sentence->bindParam(":nombre", $nombre);
+        } else {
+            return null;
+            exit();
+        }
 
-        $sentence->setFetchMode(PDO::FETCH_ASSOC);
-        $equipo = $sentence->fetchAll();
+        $sentence->execute();
+        $sentence->setFetchMode(PDO::FETCH_OBJ);
+        $equipo = $sentence->fetch();
 
         return $equipo;
     }
@@ -53,15 +63,16 @@ class EquipoModel
         return $response;
     }
 
-    public function updateEquipo($nombre)
+    public function updateEquipo($idEquipo, $nombre)
     {
         $conexion = $this->connection->getConnection();
         $sentence = $conexion->prepare("UPDATE equipos
-                                    SET nombre = ?
-                                    WHERE id_equipo = ?");
-        $response = $sentence->execute(array($nombre));
+                                    SET nombre = :nombre
+                                    WHERE id_equipo = :idEquipo");
+        $sentence->bindParam(":nombre", $nombre);
+        $sentence->bindParam(":idEquipo", $idEquipo);
+        $response = $sentence->execute();
         $conexion = null;
-
         return $response;
     }
 }

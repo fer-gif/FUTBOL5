@@ -15,7 +15,7 @@
             <ul>
                 <li><a href="{$base}/home">HOME</a></li>
                 <li><a href="{$base}/equipos">EQUIPOS</a></li>
-                <li><a href="{$base}/jugador/todos">JUGADORES</a></li>
+                <li><a href="{$base}/jugadores">JUGADORES</a></li>
                 {if $capitan}
                 <li><a href="{$base}/miequipo">MI EQUIPO</a></li>
                 {/if}
