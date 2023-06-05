@@ -15,8 +15,15 @@ class EquipoController
         $this->equipoView = new EquipoView();
     }
 
-    public function mostrarHome()
-    {
+    
+
+
+
+
+    
+
+
+/*
         $arreglo = [
             [
                 "nombre" => "River",
@@ -38,7 +45,7 @@ class EquipoController
                 "gc" => 9,
                 "puntos" => 4
             ]
-        ];
-        $this->torneoView->cargarHome($arreglo);
-    }
+        ];*/
+        
+    
 }
