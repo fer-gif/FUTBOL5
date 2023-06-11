@@ -4,9 +4,9 @@ define("BASE_URL", 'http://' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_S
 
 require_once('controller/EquipoController.php');
 require_once('controller/JugadorController.php');
-require_once('controller/TorneoController.php');
 require_once('controller/PartidoController.php');
 require_once('controller/UserController.php');
+require_once('controller/TorneoController.php');
 
 
 if (!empty($_REQUEST['action']))
@@ -18,7 +18,7 @@ $params = explode("/", $accion);
 
 switch ($params[0]) {
     case 'home':
-        $control = new PartidoController();
+        $control = new partidoController();
         $control->mostrarHome();
         break;
     case 'jugadores':

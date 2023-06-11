@@ -21,6 +21,31 @@ class PartidoModel
         return $partidos;
     }
 
+    public function getPartido($idPartido)
+    {
+        $conexion = $this->connection->getConnection();
+        $sentence = $conexion->prepare("SELECT * FROM partidos WHERE id_partiddo=?");
+        $sentence->execute(array($idPartido));
+        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $partido = $sentence->fetchAll();
+
+        return $partido;
+    }
+
+    public function getCruceDePartido($id_equipo1,$id_equipo2){
+        $conexion = $this->connection->getConnection();
+        $sentence = $conexion->prepare("SELECT COUNT(*) 
+                                    FROM partidos
+                                    WHERE ((id_equipo1 = :idEquipo1 AND id_equipo2 = :idEquipo2)
+                                    OR (id_equipo1 = :idEquipo2 AND id_equipo2 = :idEquipo1))");
+        $sentence->execute(array($id_equipo1,$id_equipo2));
+
+        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $partidos = $sentence->fetchAll();
+
+        return $partidos;
+    }
+
    
     public function addPartido($id_equipo1,$id_equipo2,$golesEquipo1,$golesEquipo2,$fecha)
     {
@@ -72,7 +97,7 @@ class PartidoModel
         FROM partidos
         WHERE (id_equipo1 = :idEquipo AND goles_equipo1 = goles_equipo2)
         OR (id_equipo2 = :idEquipo AND goles_equipo2 = goles_equipo1)");
-        $consultaEmpatados->bindParam(':idEquipo',$id_equipo);
+        $consultaEmpatados->bindParam(':idEquipo1',$id_equipo);
         $consultaEmpatados->execute();
         $partidosEmpatados=$consultaEmpatados->fetch(PDO::FETCH_ASSOC);
 
