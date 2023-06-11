@@ -16,11 +16,11 @@
                 <li><a href="{$base}/home">HOME</a></li>
                 <li><a href="{$base}/equipos">EQUIPOS</a></li>
                 <li><a href="{$base}/jugadores">JUGADORES</a></li>
+                <li><a href="{$base}/fixture">FIXTURE</a></li>
                 {if $capitan}
                 <li><a href="{$base}/miequipo">MI EQUIPO</a></li>
                 {/if}
                 {if $admin}
-                <li><a href="{$base}/fixture">FIXTURE</a></li>
                 <li><a href="{$base}/admin">GESTION</a></li>
                 {/if}
                 {if !$admin && !$capitan}

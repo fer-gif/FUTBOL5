@@ -29,7 +29,8 @@ class PartidoController
     {
 
         $posiciones=array();
-        $totalEquipos=$this->equipoModel->totalEquipos();
+        $equipos=$this->equipoModel->getEquipos();
+        $totalEquipos=count($equipos);
         $id=1;
         while($id<=$totalEquipos){
                 if($this->equipoModel->getEquipo($id)){

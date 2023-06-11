@@ -46,7 +46,7 @@ class EquipoModel
     public function totalEquipos()
     {
         $conexion=$this->connection->getConnection();
-        $sentence=$conexion->prepare("SELECT COUNT (*) FROM equipos");
+        $sentence=$conexion->prepare("SELECT COUNT (id_equipo) AS totalEquipos FROM equipos");
         $sentence->execute();
         $totalEquipos=$$sentence->setFetchMode(PDO::FETCH_ASSOC);
         return $totalEquipos;

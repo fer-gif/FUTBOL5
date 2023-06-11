@@ -58,6 +58,10 @@ switch ($params[0]) {
             $control->mostrarJugadores();
         }
         break;
+    case 'fixture':
+        $control=new PartidoController;
+        $control->mostrarFixture();
+        break;
     case 'equipos':
         if (isset($params[1]) && !empty($params[1])) {
             switch ($params[1]) {
