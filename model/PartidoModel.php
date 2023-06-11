@@ -13,11 +13,10 @@ class PartidoModel
     {
         $conexion = $this->connection->getConnection();
         $sentence = $conexion->prepare("SELECT * FROM partidos");
-        $sentence->execute();
-        $sentence->setFetchMode(PDO::FETCH_ASSOC);
-        $partidos = $sentence->fetchAll();
-
-        return $partidos;
+        if ($sentence && $sentence->rowCount() > 0) {
+            $partidos = $sentence->fetchAll(PDO::FETCH_ASSOC);
+            return $partidos;
+        }
     }
 
     public function getPartido($idPartido)

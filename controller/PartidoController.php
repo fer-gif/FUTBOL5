@@ -60,8 +60,10 @@ class PartidoController
 
     public function mostrarFixture()
     {
-        $partidos=$this->partidoModel->getPartidos();
-        $this->partidoView->showFixture($partidos);
+            $partidos=$this->partidoModel->getPartidos();
+            $this->partidoView->showFixture($partidos);
+        
+        
     }
 
 
