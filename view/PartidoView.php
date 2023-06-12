@@ -28,4 +28,11 @@ class PartidoView
         $this->plantilla->display("fixture.tpl");
 
     }
+
+    public function renderEditarPartido($partido)
+    {
+        $this->component->cargarEstructuraHtml($this->plantilla, "Editar partido");
+        $this->plantilla->assign("partido", $jugador);
+        $this->plantilla->display("editarpartido.tpl");
+    }
 }

@@ -129,6 +129,7 @@ class PartidoController
                     $result=$this->partidoModel->updatePartido($equipo1,$equipo2,$golesEquipo1,$golesEquipo2,$fecha);
                     if($result)
                         $this->utils->redirigirPagina("admin","Partido actualizado correctamente");
+                        
                     else
                         $this->utils->redirigirPagina("admin", "Hubo un error al intentar actualizar el partido ");   
             }else
@@ -138,7 +139,14 @@ class PartidoController
             $this->utils->redirigirPagina("login");
     }
 
-
+    public function mostrarEditarJugador($idPartido)
+    {
+        if ($this->sesion->esAdministrador()) {
+            $partido = $this->partidoModel->($idPartido);
+            $this->partidoView->renderEditarPartido($partido);
+        } else
+            $this->utils->redirigirPagina("login");
+    }
     public function eliminarPartido($idParatido)
     {
         if ($this->sesion->esAdministrador()) {
