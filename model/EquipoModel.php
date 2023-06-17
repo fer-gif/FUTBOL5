@@ -12,12 +12,18 @@ class EquipoModel
     public function getEquipos()
     {
         $conexion = $this->connection->getConnection();
-        $sentence = $conexion->prepare("SELECT * FROM equipos");
-        $sentence->execute();
-        $sentence->setFetchMode(PDO::FETCH_OBJ);
-        $equipos = $sentence->fetchAll();
+        if (!$conexion) {
+            die("Error al conectar a la base de datos");
+        }else{
+            $sentence = $conexion->prepare("SELECT * FROM equipos");
+            $sentence->execute();
+            $sentence->setFetchMode(PDO::FETCH_OBJ);
+            $equipos = $sentence->fetchAll();
+            return $equipos;
+        }
+       
         $conexion = null;
-        return $equipos;
+        
     }
 
     public function getEquipo($idEquipo = null, $nombre = null)
@@ -43,14 +49,6 @@ class EquipoModel
         return $equipo;
     }
 
-    public function totalEquipos()
-    {
-        $conexion=$this->connection->getConnection();
-        $sentence=$conexion->prepare("SELECT COUNT (id_equipo) AS totalEquipos FROM equipos");
-        $sentence->execute();
-        $totalEquipos=$$sentence->setFetchMode(PDO::FETCH_ASSOC);
-        return $totalEquipos;
-    }
 
     public function addEquipo($nombre)
     {

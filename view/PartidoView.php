@@ -21,10 +21,11 @@ class PartidoView
     }
 
     /*POSIBLE MODIFICACION*/
-    public function showFixture($partidos)
+    public function showFixture($partidos,$equipos)
     {
         $this->component->cargarEstructuraHtml($this->plantilla,"Fixture");
         $this->plantilla->assign("partidos",$partidos);
+        $this->plantilla->assign("equipos",$equipos);
         $this->plantilla->display("fixture.tpl");
 
     }

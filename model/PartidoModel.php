@@ -30,6 +30,7 @@ class PartidoModel
         return $partido;
     }
 
+    /*
     public function getCruceDePartido($id_equipo1,$id_equipo2){
         $conexion = $this->connection->getConnection();
         $sentence = $conexion->prepare("SELECT COUNT(*) 
@@ -43,7 +44,7 @@ class PartidoModel
 
         return $partidos;
     }
-
+*/
    
     public function addPartido($id_equipo1,$id_equipo2,$golesEquipo1,$golesEquipo2,$fecha)
     {

@@ -29,28 +29,31 @@ class PartidoController
     {
 
         $posiciones=array();
-        $equipos=$this->equipoModel->getEquipos();
-        $totalEquipos=count($equipos);
-        $id=1;
-        while($id<=$totalEquipos){
-                if($this->equipoModel->getEquipo($id)){
-                    $equipoArreglo=array(
-                        "nombre"=>$this->equipoModel->getEquipo($id),
-                        "puntos"=>$this->partidoModel->getPuntos($id),
-                        "pg"=>$this->partidoModel->getPartidoGanado($id),
-                        "pe"=>$this->partidoModel->getPartidoEmpatado($id),
-                        "pp"=>$this->partidoModel->getPartidoPerdidos($id),
-                        "gf"=>$this->partidoModel->getGolesDeEqipo($id),
-                        "gc"=>$this->partidoModel->getGolesRecibidos($id)
-                    );
-                    array_push($posiciones,$equipoArreglo);
-                }
-            $id++;  
+        if($this->equipoModel->getEquipos()){
+            $equipos=$this->equipoModel->getEquipos();
+            $totalEquipos=count($equipos);
+            $id=1;
+            while($id<=$totalEquipos){
+                    if($this->equipoModel->getEquipo($id)){
+                        $equipoArreglo=array(
+                            "nombre"=>$this->equipoModel->getEquipo($id),
+                            "puntos"=>$this->partidoModel->getPuntos($id),
+                            "pg"=>$this->partidoModel->getPartidoGanado($id),
+                            "pe"=>$this->partidoModel->getPartidoEmpatado($id),
+                            "pp"=>$this->partidoModel->getPartidoPerdidos($id),
+                            "gf"=>$this->partidoModel->getGolesDeEqipo($id),
+                            "gc"=>$this->partidoModel->getGolesRecibidos($id)
+                        );
+                        array_push($posiciones,$equipoArreglo);
+                    }
+                $id++;  
+            }
+            
+            usort($posiciones, function($a,$b){
+                return $b['puntos'] - $a['puntos'];
+            });
         }
-        
-        usort($posiciones, function($a,$b){
-            return $b['puntos'] - $a['puntos'];
-        });
+       
 
         $this->partidoView->cargarHome($posiciones);
 
@@ -60,8 +63,9 @@ class PartidoController
 
     public function mostrarFixture()
     {
-            $partidos=$this->partidoModel->getPartidos();
-            $this->partidoView->showFixture($partidos);
+        $equipo=$this->equipoModel->getEquipos();
+        $partidos=$this->partidoModel->getPartidos();
+        $this->partidoView->showFixture($partidos,$equipo);
         
         
     }
@@ -139,14 +143,17 @@ class PartidoController
             $this->utils->redirigirPagina("login");
     }
 
-    public function mostrarEditarJugador($idPartido)
+    public function mostrarEditarPartido($idPartido)
     {
         if ($this->sesion->esAdministrador()) {
-            $partido = $this->partidoModel->($idPartido);
+            $partido=$this->partidoModel->getPartido($idPartido);
             $this->partidoView->renderEditarPartido($partido);
-        } else
+        } else{
             $this->utils->redirigirPagina("login");
+        }
+           
     }
+
     public function eliminarPartido($idParatido)
     {
         if ($this->sesion->esAdministrador()) {

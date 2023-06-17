@@ -58,25 +58,26 @@ switch ($params[0]) {
             $control->mostrarJugadores();
         }
         break;
+        
     case 'fixture':
         if (isset($params[1]) && !empty($params[1])) {
             switch ($params[1]){
                 case 'editar':
                     $control=new PartidoController;
                     $control->mostrarEditarPartido($params[2]);
-                break;
+                    break;
                 case 'update':
                     $control=new PartidoController();
                     $control->editarPartido($params[2]);
-                break;
+                    break;
                 case 'eliminar':
                     $control=new PartidoController();
-                    $control->eliminarPartido($params[2])
-                break;
+                    $control->eliminarPartido($params[2]);
+                    break;
                 case 'registrar':
                     $control=new PartidoController();
                     $control->registrarPartido();
-                break;
+                    break;
 
             }
         }else{
@@ -139,7 +140,7 @@ switch ($params[0]) {
         $control->mostrarFixture();
         break;*/
     case 'login':
-        if (isset($params[1]) && !empty($params[1]))
+        if (isset($params[1]) && !empty($params[1])){
             switch ($params[1]) {
                 case 'ingreso':
                     $control = new UserController();
@@ -153,11 +154,15 @@ switch ($params[0]) {
                     header("HTTP/1.0 404 Not Found");
                     $control = new UserController();
                     $control->paginaNoExiste();
+                    
             }
+        }
+            
         else {
             $control = new UserController();
             $control->mostrarLogin();
         }
+
         break;
     case 'usuario':
         switch ($params[1]) {
