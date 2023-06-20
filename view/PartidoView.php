@@ -13,15 +13,27 @@ class PartidoView
         $this->component = new ComponentHelper();
     }
 
-    public function renderFixture($equipos)
-    {
-        $this->plantilla->assign("equipos", $equipos);
-        $this->plantilla->assign('templates/fixture.tpl');
-    }
-    public function renderHome($equipos)
+    public function cargarHome($estadisticasEquipos)
     {
         $this->component->cargarEstructuraHtml($this->plantilla, "Home");
-        $this->plantilla->assign("equipos", $equipos);
+        $this->plantilla->assign("equipos", $estadisticasEquipos);
         $this->plantilla->display("home.tpl");
+    }
+
+    /*POSIBLE MODIFICACION*/
+    public function showFixture($partidos,$equipos)
+    {
+        $this->component->cargarEstructuraHtml($this->plantilla,"Fixture");
+        $this->plantilla->assign("partidos",$partidos);
+        $this->plantilla->assign("equipos",$equipos);
+        $this->plantilla->display("fixture.tpl");
+
+    }
+
+    public function renderEditarPartido($partido)
+    {
+        $this->component->cargarEstructuraHtml($this->plantilla, "Editar partido");
+        $this->plantilla->assign("partido", $jugador);
+        $this->plantilla->display("editarpartido.tpl");
     }
 }

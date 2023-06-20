@@ -375,3 +375,8 @@ footer {
     filter: brightness(1.1);
     mix-blend-mode: multiply;
 }
+
+.listaDePartidos {
+    list-style: none;
+    margin-top: 5px;
+}

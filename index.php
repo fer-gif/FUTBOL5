@@ -4,9 +4,9 @@ define("BASE_URL", 'http://' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_S
 
 require_once('controller/EquipoController.php');
 require_once('controller/JugadorController.php');
-require_once('controller/TorneoController.php');
 require_once('controller/PartidoController.php');
 require_once('controller/UserController.php');
+require_once('controller/TorneoController.php');
 
 
 if (!empty($_REQUEST['action']))
@@ -18,7 +18,7 @@ $params = explode("/", $accion);
 /*HACER TODOS LOS NEW DE LOS CONTROLLER ACA. NO EN CADA CASE*/
 switch ($params[0]) {
     case 'home':
-        $control = new PartidoController();
+        $control = new partidoController();
         $control->mostrarHome();
         break;
     case 'jugadores':
@@ -57,6 +57,34 @@ switch ($params[0]) {
             $control = new JugadorController();
             $control->mostrarJugadores();
         }
+        break;
+        
+    case 'fixture':
+        if (isset($params[1]) && !empty($params[1])) {
+            switch ($params[1]){
+                case 'editar':
+                    $control=new PartidoController;
+                    $control->mostrarEditarPartido($params[2]);
+                    break;
+                case 'update':
+                    $control=new PartidoController();
+                    $control->editarPartido($params[2]);
+                    break;
+                case 'eliminar':
+                    $control=new PartidoController();
+                    $control->eliminarPartido($params[2]);
+                    break;
+                case 'registrar':
+                    $control=new PartidoController();
+                    $control->registrarPartido();
+                    break;
+
+            }
+        }else{
+            $control=new PartidoController;
+            $control->mostrarFixture();
+        }
+       
         break;
     case 'equipos':
         if (isset($params[1]) && !empty($params[1])) {
@@ -112,7 +140,7 @@ switch ($params[0]) {
         $control->mostrarFixture();
         break;*/
     case 'login':
-        if (isset($params[1]) && !empty($params[1]))
+        if (isset($params[1]) && !empty($params[1])){
             switch ($params[1]) {
                 case 'ingreso':
                     $control = new UserController();
@@ -126,11 +154,15 @@ switch ($params[0]) {
                     header("HTTP/1.0 404 Not Found");
                     $control = new UserController();
                     $control->paginaNoExiste();
+                    
             }
+        }
+            
         else {
             $control = new UserController();
             $control->mostrarLogin();
         }
+
         break;
     case 'usuario':
         switch ($params[1]) {
