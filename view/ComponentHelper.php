@@ -33,8 +33,6 @@ class ComponentHelper
         //Aca se comprueban los permisos de SesionHelper
         $plantilla->assign("capitan", $this->sesion->esCapitan());
         $plantilla->assign("admin", $this->sesion->esAdministrador());
-        //$plantilla->assign("capitan", false);
-        //$plantilla->assign("admin", true);
         if ($this->sesion->hayError()) {
             $plantilla->assign("mensaje", $this->sesion->getMensajeError());
             $this->sesion->destruirMensaje();

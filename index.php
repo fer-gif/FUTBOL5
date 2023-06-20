@@ -15,7 +15,7 @@ else
     $accion = 'home';
 
 $params = explode("/", $accion);
-
+/*HACER TODOS LOS NEW DE LOS CONTROLLER ACA. NO EN CADA CASE*/
 switch ($params[0]) {
     case 'home':
         $control = new PartidoController();
