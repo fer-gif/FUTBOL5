@@ -14,9 +14,14 @@ class EquipoController
 
     public function __construct()
     {
-        $this->equipoModel = new EquipoModel();
         $this->equipoView = new EquipoView();
         $this->utils = new Utils();
+        try {
+            $this->equipoModel = new EquipoModel();
+        } catch (Exception $e) {
+            $this->utils->redirigirPagina("error");
+            exit();
+        }
     }
 
     public function mostrarEquipos()

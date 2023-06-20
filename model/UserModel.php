@@ -6,7 +6,11 @@ class UserModel
 
     public function __construct()
     {
-        $this->conexion = new Conexion();
+        try {
+            $this->conexion = new Conexion();
+        } catch (PDOException $e) {
+            throw new Exception($e);
+        }
     }
 
     public function addUsuario($usuario, $pass, $email, $permisos, $id_equipo)

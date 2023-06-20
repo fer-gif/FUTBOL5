@@ -16,12 +16,17 @@ class UserController
 
     public function __construct()
     {
-        $this->userModel = new UserModel();
-        $this->userView = new UserView();
-        $this->sesion = new SesionHelper();
-        $this->equipoModel = new EquipoModel();
         $this->utils = new Utils();
-        $this->jugadorModel = new JugadorModel();
+        $this->userView = new UserView();
+        try {
+            $this->userModel = new UserModel();
+            $this->sesion = new SesionHelper();
+            $this->equipoModel = new EquipoModel();
+            $this->jugadorModel = new JugadorModel();
+        } catch (Exception $e) {
+            $this->utils->redirigirPagina("error");
+            exit();
+        }
     }
 
     public function registrarUsuario()

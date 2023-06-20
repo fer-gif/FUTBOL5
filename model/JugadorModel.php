@@ -7,7 +7,11 @@ class JugadorModel
 
     public function __construct()
     {
-        $this->connection = new Conexion();
+        try {
+            $this->connection = new Conexion();
+        } catch (PDOException $e) {
+            throw new Exception($e);
+        }
     }
 
 

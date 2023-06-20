@@ -12,6 +12,7 @@ class Utils
 
     public function redirigirPagina($url, $mensaje = null)
     {
+
         if ($url == 'login')
             $this->sesion->destruirSesion();
         if (!empty($mensaje))

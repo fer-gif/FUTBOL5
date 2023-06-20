@@ -15,11 +15,16 @@ class JugadorController
 
     public function __construct()
     {
-        $this->jugadorModel = new JugadorModel();
         $this->jugadorView = new JugadorView();
         $this->sesion = new SesionHelper();
         $this->utils = new Utils();
-        $this->equipoModel = new EquipoModel();
+        try {
+            $this->equipoModel = new EquipoModel();
+            $this->jugadorModel = new JugadorModel();
+        } catch (Exception $e) {
+            $this->utils->redirigirPagina("error");
+            exit();
+        }
     }
     public function mostrarJugadores()
     {

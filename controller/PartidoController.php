@@ -1,7 +1,6 @@
 <?php
 require_once 'model/EquipoModel.php';
 require_once 'model/PartidoModel.php';
-require_once 'view/EquipoView.php';
 require_once 'model/SesionHelper.php';
 require_once 'model/Utils.php';
 require_once 'view/PartidoView.php';
@@ -17,11 +16,16 @@ class PartidoController
 
     public function __construct()
     {
-        $this->equipoModel = new EquipoModel();
-        $this->partidoModel = new PartidoModel();
         $this->partidoView = new PartidoView();
         $this->sesion = new SesionHelper();
         $this->utils = new Utils();
+        try {
+            $this->equipoModel = new EquipoModel();
+            $this->partidoModel = new PartidoModel();
+        } catch (Exception $e) {
+            $this->utils->redirigirPagina("error");
+            exit();
+        }
     }
 
 
@@ -35,22 +39,6 @@ class PartidoController
             $estadisticas = $this->calcularEstadistica($partidos, $equipo->id_equipo);
             $estadisticas["nombre"] = $equipo->nombre;
             array_push($posiciones, $estadisticas);
-            /*
-            $pg = $this->partidoModel->getPartidoGanado($equipo->id_equipo);
-            $pe = $this->partidoModel->getPartidoEmpatado($equipo->id_equipo);
-            $pp = $this->partidoModel->getPartidoPerdidos($equipo->id_equipo);
-            $equipoArreglo = array(
-                //"nombre" => $this->equipoModel->getEquipo($id),
-                "nombre" => $equipo->nombre,
-                "puntos" => (($pg * 3) + $pe),
-                "pj" => $pg + $pe + $pp,
-                "pg" => $pg,
-                "pe" => $pe,
-                "pp" => $pp,
-                "gf" => $this->partidoModel->getGolesDeEqipo($equipo->id_equipo),
-                "gc" => $this->partidoModel->getGolesRecibidos($equipo->id_equipo)
-            );
-            array_push($posiciones, $equipoArreglo);*/
         }
 
         usort($posiciones, function ($a, $b) {
@@ -128,7 +116,6 @@ class PartidoController
             $partido = $this->partidoModel->getCruceDePartido($equipo1, $equipo2);
             if (!$partido) {
                 $result = $this->partidoModel->addPartido($equipo1, $equipo2, $golesEquipo1, $golesEquipo2, $fecha);
-                //$this->partidoView->showFixture($result);
                 if ($result)
                     $this->utils->redirigirPagina("admin", "Partido agregado correctamente");
                 else
@@ -154,7 +141,6 @@ class PartidoController
             $result = $this->partidoModel->updatePartido($id_partido, $golesEquipo1, $golesEquipo2, $fecha);
             if ($result)
                 $this->utils->redirigirPagina("admin", "Partido actualizado correctamente");
-
             else
                 $this->utils->redirigirPagina("admin", "Hubo un error al intentar actualizar el partido ");
         } else
@@ -179,17 +165,15 @@ class PartidoController
     }
     public function eliminarPartido($idParatido)
     {
-        if ($this->sesion->esAdministrador()) {
-            $partido = $this->partidoModel->getPartido($idParatido);
-            if ($partido) {
-                $result = $this->partidoModel->deletePartido($idParatido);
-                if ($result) {
-                    $this->utils->redirigirPagina("fixture", "Partido eliminado correctamente.");
-                } else
-                    $this->utils->redirigirPagina("fixture", "Hubo en error al intentar eliminar el partido.");
+        $this->utils->comprobarAdministrador();
+        $partido = $this->partidoModel->getPartido($idParatido);
+        if ($partido) {
+            $result = $this->partidoModel->deletePartido($idParatido);
+            if ($result) {
+                $this->utils->redirigirPagina("fixture", "Partido eliminado correctamente.");
             } else
-                $this->utils->redirigirPagina("fixture", "El partido que intenta eliminar no existe en nuestra base de datos.");
+                $this->utils->redirigirPagina("fixture", "Hubo en error al intentar eliminar el partido.");
         } else
-            $this->utils->redirigirPagina("login");
+            $this->utils->redirigirPagina("fixture", "El partido que intenta eliminar no existe en nuestra base de datos.");
     }
 }

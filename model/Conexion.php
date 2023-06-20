@@ -13,9 +13,8 @@ class Conexion
         try {
             $this->conexion = new PDO("mysql:host=" . $this->host . "; dbname=" . $this->db . "; charset=utf8", $this->user, $this->pass);
         } catch (PDOException $e) {
-            /* $this->conexion = null;*/
+            throw new Exception($e);
         }
-        /*return $this->conexion;*/
     }
 
     public function getConnection()

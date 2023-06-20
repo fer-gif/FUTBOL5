@@ -8,14 +8,12 @@ require_once('controller/PartidoController.php');
 require_once('controller/UserController.php');
 require_once('controller/TorneoController.php');
 
-
 if (!empty($_REQUEST['action']))
     $accion = $_REQUEST['action'];
 else
     $accion = 'home';
 
 $params = explode("/", $accion);
-/*HACER TODOS LOS NEW DE LOS CONTROLLER ACA. NO EN CADA CASE*/
 switch ($params[0]) {
     case 'home':
         $control = new partidoController();
@@ -82,6 +80,10 @@ switch ($params[0]) {
                     $control = new PartidoController();
                     $control->eliminarPartido($params[2]);
                     break;
+                default:
+                    header("HTTP/1.0 404 Not Found");
+                    $control = new UserController();
+                    $control->paginaNoExiste();
             }
         } else {
             $control = new PartidoController;
@@ -138,10 +140,6 @@ switch ($params[0]) {
         $control = new UserController();
         $control->mostrarMiEquipo();
         break;
-        /*case 'fixture':
-        $control = new EquipoController();
-        $control->mostrarFixture();
-        break;*/
     case 'login':
         if (isset($params[1]) && !empty($params[1])) {
             switch ($params[1]) {
@@ -196,13 +194,14 @@ switch ($params[0]) {
                 $control->paginaNoExiste();
         }
         break;
-        /*case 'registrarPartido':
-        $control = new PartidoController();
-        $control->registrarPartido();
-        break;*/
+    case 'error':
+        header("HTTP/1.0 500 Server Error");
+        $control = new TorneoController();
+        $control->errorEnServidor();
+        break;
     default: {
+            //header("HTTP/1.0 404 Not Found");
             $control = new UserController();
             $control->paginaNoExiste();
-            //header("HTTP/1.0 404 Not Found");
         }
 }

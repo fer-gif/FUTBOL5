@@ -1,5 +1,6 @@
 {include file='header.tpl'}
 <main>
+    {include file="mensaje.tpl"}
     <table class="tablaPosiciones">
         <thead class="theadPosiciones">
             <th>Pos</th>

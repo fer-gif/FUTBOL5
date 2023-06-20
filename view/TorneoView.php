@@ -18,4 +18,9 @@ class TorneoView
         $this->plantilla->assign("equipos", $estadisticasEquipos);
         $this->plantilla->display("home.tpl");
     }
+    public function renderErrorServidor()
+    {
+        $this->component->cargarEstructuraHtml($this->plantilla, "Error");
+        $this->plantilla->display("errorenservidor.tpl");
+    }
 }

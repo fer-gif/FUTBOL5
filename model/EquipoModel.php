@@ -6,24 +6,25 @@ class EquipoModel
 
     public function __construct()
     {
-        $this->connection = new Conexion();
+        try {
+            $this->connection = new Conexion();
+        } catch (PDOException $e) {
+            throw new Exception($e);
+        }
     }
 
     public function getEquipos()
     {
         $conexion = $this->connection->getConnection();
-        if (!$conexion) {
-            die("Error al conectar a la base de datos");
-        }else{
-            $sentence = $conexion->prepare("SELECT * FROM equipos");
-            $sentence->execute();
-            $sentence->setFetchMode(PDO::FETCH_OBJ);
-            $equipos = $sentence->fetchAll();
-            return $equipos;
-        }
-       
+
+        $sentence = $conexion->prepare("SELECT * FROM equipos");
+        $sentence->execute();
+        $sentence->setFetchMode(PDO::FETCH_OBJ);
+        $equipos = $sentence->fetchAll();
+        return $equipos;
+
+
         $conexion = null;
-        
     }
 
     public function getEquipo($idEquipo = null, $nombre = null)
