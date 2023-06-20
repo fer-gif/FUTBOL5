@@ -53,6 +53,13 @@ class SesionHelper
         else
             return null;
     }
+    public function getPermiso()
+    {
+        if (isset($_SESSION["permisos"]))
+            return ($_SESSION["permisos"]);
+        else
+            return null;
+    }
     public function getEquipo()
     {
         $this->comprobarSession();

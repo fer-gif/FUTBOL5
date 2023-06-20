@@ -44,6 +44,7 @@
                     </p>
                     <label for="equipo">Equipo</label>
                     <select name="equipo" id="">
+                        <option value="0">Seleccione uno...</option>
                         {foreach from=$equipos item=equipo}
                         <option value="{$equipo->id_equipo}">{$equipo->nombre}</option>
                         {/foreach}
