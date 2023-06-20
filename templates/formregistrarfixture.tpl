@@ -9,9 +9,9 @@
                 {/foreach}
             </select>
         </div>
-        <input type="number" name="golesEquipo1" id="" min="0" class="inputGoles" required placeholder="0">
+        <input type="number" name="golesEquipo1" id="" min="0" class="inputGoles">
         <p>VS</p>
-        <input type="number" name="golesEquipo2" min="0" id="" class="inputGoles" required placeholder="0">
+        <input type="number" name="golesEquipo2" min="0" id="" class="inputGoles">
         <div class="selectEquipo">
             <label for="equipo2">Equipo 2</label>
             <select name="equipo2" id="">
@@ -23,7 +23,7 @@
     </div>
     <div class="fecha">
         <label for="fecha">Fecha numero:</label>
-        <input type="number" name="fecha" id="" min="1" required placeholder="1">
+        <input type="number" name="fecha" id="" min="1">
     </div>
 
     <input type="submit" value="Registrar" class="btnRegistrarPartido">

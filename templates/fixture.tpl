@@ -1,5 +1,14 @@
 {include file='header.tpl'}
 <main>
+    {if isset($confirmacion)}
+    <div class="confirmacion">
+        <p>Desea ELIMINAR el partido?</p>
+        <div class="btnConfirm">
+            <a href="{$base}/fixture/deletePartido/{$idPartido}">Si</a>
+            <a href="{$base}/fixture">No</a>
+        </div>
+    </div>
+    {/if}
     <h1>Partidos</h1>
     <ul class="listaDePartidos">
         {foreach from=$partidos item=partido}

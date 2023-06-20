@@ -21,9 +21,13 @@ class PartidoView
     }
 
     /*POSIBLE MODIFICACION*/
-    public function showFixture($partidos)
+    public function showFixture($partidos, $idPartido = null, $confirmacion = null)
     {
         $this->component->cargarEstructuraHtml($this->plantilla, "Fixture");
+        if (isset($confirmacion) && $confirmacion) {
+            $this->plantilla->assign("confirmacion", true);
+            $this->plantilla->assign("idPartido", $idPartido);
+        }
         $this->plantilla->assign("partidos", $partidos);
         $this->plantilla->display("fixture.tpl");
     }
@@ -31,7 +35,7 @@ class PartidoView
     public function renderEditarPartido($partido)
     {
         $this->component->cargarEstructuraHtml($this->plantilla, "Editar partido");
-        $this->plantilla->assign("partido", $jugador);
+        $this->plantilla->assign("partido", $partido);
         $this->plantilla->display("editarpartido.tpl");
     }
 }

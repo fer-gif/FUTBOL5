@@ -26,34 +26,52 @@ class PartidoModel
     public function getPartido($idPartido)
     {
         $conexion = $this->connection->getConnection();
-        $sentence = $conexion->prepare("SELECT * FROM partidos WHERE id_partiddo=?");
+        $sentence = $conexion->prepare("SELECT p.id_partido,p.goles_equipo1, p.goles_equipo2,
+                                        p.fecha, e1.nombre AS nom_equipo1, e2.nombre AS nom_equipo2
+                                         FROM partidos p
+                                         INNER JOIN equipos e1 ON e1.id_equipo = p.id_equipo1
+                                         INNER JOIN equipos e2 ON e2.id_equipo = p.id_equipo2
+                                         WHERE id_partido=?");
         $sentence->execute(array($idPartido));
-        $sentence->setFetchMode(PDO::FETCH_ASSOC);
-        $partido = $sentence->fetchAll();
-
+        $partido = $sentence->fetch(PDO::FETCH_ASSOC);
         return $partido;
     }
 
-    /*
-    public function getCruceDePartido($id_equipo1,$id_equipo2){
+    public function getPartidosXEquipo($idEquipo)
+    {
         $conexion = $this->connection->getConnection();
-        $sentence = $conexion->prepare("SELECT COUNT(*) 
+        $sentence = $conexion->prepare("SELECT * FROM partidos 
+                                        WHERE id_equipo1 = :idEquipo OR id_equipo2 = :idEquipo");
+        $sentence->bindParam(":idEquipo", $idEquipo);
+        $sentence->execute();
+        $result = $sentence->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function getCruceDePartido($id_equipo1, $id_equipo2)
+    {
+        $conexion = $this->connection->getConnection();
+        $sentence = $conexion->prepare("SELECT *
                                     FROM partidos
                                     WHERE ((id_equipo1 = :idEquipo1 AND id_equipo2 = :idEquipo2)
                                     OR (id_equipo1 = :idEquipo2 AND id_equipo2 = :idEquipo1))");
-        $sentence->execute(array($id_equipo1,$id_equipo2));
+        $sentence->bindParam(":idEquipo1", $id_equipo1);
+        $sentence->bindParam(":idEquipo2", $id_equipo2);
 
-        $sentence->setFetchMode(PDO::FETCH_ASSOC);
+        $sentence->execute();
+
         $partidos = $sentence->fetchAll();
-
-        return $partidos;
+        if ($partidos)
+            return true;
+        else
+            return false;
+        //return $partidos['cant'];
     }
-*/
+
 
     public function addPartido($id_equipo1, $id_equipo2, $golesEquipo1, $golesEquipo2, $fecha)
     {
         $conexion = $this->connection->getConnection();
-        $sentence = $conexion->prepare("INSERT INTO partidos(id_equipo1,id_equip2,goles_equipo1,goles_equipo2,fecha) VALUES(?,?,?,?,?)");
+        $sentence = $conexion->prepare("INSERT INTO partidos(id_equipo1,id_equipo2,goles_equipo1,goles_equipo2,fecha) VALUES(?,?,?,?,?)");
         $sentence->execute(array($id_equipo1, $id_equipo2, $golesEquipo1, $golesEquipo2, $fecha));
         $lastId = $conexion->lastInsertId();
         $conexion = null;
@@ -70,13 +88,13 @@ class PartidoModel
         return $response;
     }
 
-    public function updatePartido($id_equipo1, $id_equipo2, $golesEquipo1, $golesEquipo2, $fecha)
+    public function updatePartido($id_partido, $golesEquipo1, $golesEquipo2, $fecha)
     {
         $conexion = $this->connection->getConnection();
-        $sentence = $conexion->prepare("UPDATE equipos
-                                    SET id_equipo1 = ?, id_equipo2=?,goles_equipo1=?,goles_equipo2=?,fecha=?
-                                    WHERE id_equipo = ?");
-        $response = $sentence->execute(array($id_equipo1, $id_equipo2, $golesEquipo1, $golesEquipo2, $fecha));
+        $sentence = $conexion->prepare("UPDATE partidos
+                                    SET goles_equipo1=?,goles_equipo2=?,fecha=?
+                                    WHERE id_partido = ?");
+        $response = $sentence->execute(array($golesEquipo1, $golesEquipo2, $fecha, $id_partido));
         $conexion = null;
 
         return $response;
@@ -112,7 +130,7 @@ class PartidoModel
     public function getGolesDeEqipo($id_equipo)
     {
         $conexion = $this->connection->getConnection();
-        $response = $conexion->prepare("SELECT SUM(goles_equipo1) 
+        $response = $conexion->prepare("SELECT SUM(goles_equipo1) AS goles_favor
         FROM partidos
         WHERE id_equipo1 = :idEquipo
         UNION ALL
@@ -122,35 +140,39 @@ class PartidoModel
 
         $response->bindParam(':idEquipo', $id_equipo);
         $response->execute();
-        $golesConvertidos = $response->fetch(PDO::FETCH_ASSOC);
+        $golesConvertidos = $response->fetch();
         $conexion = null;
-
-        return $golesConvertidos;
+        if ($golesConvertidos['goles_favor'])
+            return $golesConvertidos['goles_favor'];
+        else
+            return 0;
     }
 
     public function getGolesRecibidos($id_equipo)
     {
         $conexion = $this->connection->getConnection();
-        $response = $conexion->prepare("SELECT SUM(goles_equipo2) 
+        $response = $conexion->prepare("SELECT SUM(goles_equipo2) AS goles_recibidos
                             FROM partidos
                             WHERE id_equipo1 = :idEquipo
                             UNION ALL
-                            SELECT SUM(goles_equipo1) 
+                            SELECT SUM(goles_equipo1) AS goles_recibidos2
                             FROM partidos
                             WHERE id_equipo2 = :idEquipo");
 
         $response->bindParam(':idEquipo', $id_equipo);
         $response->execute();
-        $golesRecibidos = $response->fetch(PDO::FETCH_ASSOC);
+        $golesRecibidos = $response->fetch();
         $conexion = null;
-
-        return $golesRecibidos;
+        if ($golesRecibidos['goles_recibidos'])
+            return $golesRecibidos['goles_recibidos'] + $golesRecibidos['goles_recibidos2'];
+        else
+            return 0;
     }
 
     public function getPartidoPerdidos($id_equipo)
     {
         $conexion = $this->connection->getConnection();
-        $response = $conexion->prepare("SELECT COUNT(*) 
+        $response = $conexion->prepare("SELECT COUNT(*) AS partido_perdido
                         FROM partidos
                         WHERE (id_equipo1 = :idEquipo AND goles_equipo1 < goles_equipo2)
                          OR (id_equipo2 = :idEquipo AND goles_equipo2 < goles_equipo1)");
@@ -158,10 +180,10 @@ class PartidoModel
         $response->bindParam(':idEquipo', $id_equipo);
         $response->execute();
 
-        $partidosPerdidos = $response->fetch(PDO::FETCH_ASSOC);
+        $partidosPerdidos = $response->fetch();
         $conexion = null;
 
-        return $partidosPerdidos;
+        return $partidosPerdidos['partido_perdido'];
     }
     public function getPartidoJugados($id_equipo)
     {
@@ -182,32 +204,31 @@ class PartidoModel
     public function getPartidoGanado($id_equipo)
     {
         $conexion = $this->connection->getConnection();
-        $response = $conexion->prepare("SELECT COUNT(*) 
+        $response = $conexion->prepare("SELECT COUNT(*) AS partido_ganado
                         FROM partidos
                         WHERE (id_equipo1 = :idEquipo AND goles_equipo1 > goles_equipo2)
                          OR (id_equipo2 = :idEquipo AND goles_equipo2 > goles_equipo1)");
         $response->bindParam(':idEquipo', $id_equipo);
         $response->execute();
-        $partidosGanados = $response->fetch(PDO::FETCH_ASSOC);
 
+        $partidosGanados = $response->fetch();
         $conexion = null;
 
-        return $partidosGanados;
+        return $partidosGanados['partido_ganado'];
     }
 
     public function getPartidoEmpatado($id_equipo)
     {
         $conexion = $this->connection->getConnection();
-        $response = $conexion->prepare("SELECT COUNT(*) 
+        $response = $conexion->prepare("SELECT COUNT(*) AS partido_empatado
                         FROM partidos
-                        WHERE (id_equipo1 = :idEquipo AND goles_equipo1 = goles_equipo2)
-                         OR (id_equipo2 =  AND goles_equipo2 = goles_equipo1)");
+                        WHERE (id_equipo1 = :idEquipo AND goles_equipo1 = goles_equipo2)");
         $response->bindParam(':idEquipo', $id_equipo);
         $response->execute();
 
-        $partidosEmpatados = $response->fetch(PDO::FETCH_ASSOC);
+        $partidosEmpatados = $response->fetch();
         $conexion = null;
 
-        return $partidosEmpatados;
+        return $partidosEmpatados['partido_empatado'];
     }
 }

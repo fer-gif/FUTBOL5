@@ -29,35 +29,77 @@ class PartidoController
     {
 
         $posiciones = array();
-        if ($this->equipoModel->getEquipos()) {
-            $equipos = $this->equipoModel->getEquipos();
-            $totalEquipos = count($equipos);
-            $id = 1;
-            while ($id <= $totalEquipos) {
-                if ($this->equipoModel->getEquipo($id)) {
-                    $equipoArreglo = array(
-                        "nombre" => $this->equipoModel->getEquipo($id),
-                        "puntos" => $this->partidoModel->getPuntos($id),
-                        "pg" => $this->partidoModel->getPartidoGanado($id),
-                        "pe" => $this->partidoModel->getPartidoEmpatado($id),
-                        "pp" => $this->partidoModel->getPartidoPerdidos($id),
-                        "gf" => $this->partidoModel->getGolesDeEqipo($id),
-                        "gc" => $this->partidoModel->getGolesRecibidos($id)
-                    );
-                    array_push($posiciones, $equipoArreglo);
-                }
-                $id++;
-            }
-
-            usort($posiciones, function ($a, $b) {
-                return $b['puntos'] - $a['puntos'];
-            });
+        $equipos = $this->equipoModel->getEquipos();
+        foreach ($equipos as $equipo) {
+            $partidos = $this->partidoModel->getPartidosXEquipo($equipo->id_equipo);
+            $estadisticas = $this->calcularEstadistica($partidos, $equipo->id_equipo);
+            $estadisticas["nombre"] = $equipo->nombre;
+            array_push($posiciones, $estadisticas);
+            /*
+            $pg = $this->partidoModel->getPartidoGanado($equipo->id_equipo);
+            $pe = $this->partidoModel->getPartidoEmpatado($equipo->id_equipo);
+            $pp = $this->partidoModel->getPartidoPerdidos($equipo->id_equipo);
+            $equipoArreglo = array(
+                //"nombre" => $this->equipoModel->getEquipo($id),
+                "nombre" => $equipo->nombre,
+                "puntos" => (($pg * 3) + $pe),
+                "pj" => $pg + $pe + $pp,
+                "pg" => $pg,
+                "pe" => $pe,
+                "pp" => $pp,
+                "gf" => $this->partidoModel->getGolesDeEqipo($equipo->id_equipo),
+                "gc" => $this->partidoModel->getGolesRecibidos($equipo->id_equipo)
+            );
+            array_push($posiciones, $equipoArreglo);*/
         }
 
+        usort($posiciones, function ($a, $b) {
+            return $b['puntos'] - $a['puntos'];
+        });
 
         $this->partidoView->cargarHome($posiciones);
 
         return $posiciones;
+    }
+
+    public function calcularEstadistica($partidos, $idEquipo)
+    {
+        $equipoArreglo = array(
+            "puntos" => 0,
+            "pj" => 0,
+            "pg" => 0,
+            "pe" => 0,
+            "pp" => 0,
+            "gf" => 0,
+            "gc" => 0
+        );
+        foreach ($partidos as $partido) {
+            if ($partido['id_equipo1'] == $idEquipo)
+                $this->calcularPartido($equipoArreglo, $partido['goles_equipo1'], $partido['goles_equipo2']);
+            else
+                $this->calcularPartido($equipoArreglo, $partido['goles_equipo2'], $partido['goles_equipo1']);
+        }
+        return $equipoArreglo;
+    }
+
+    public function calcularPartido(&$arreglo, $golesEquipo, $golesElotro)
+    {
+        if ($golesEquipo > $golesElotro) {
+            $arreglo["puntos"] += 3;
+            $arreglo["pg"] += 1;
+            $arreglo["gf"] += $golesEquipo;
+            $arreglo["gc"] += $golesElotro;
+        } elseif ($golesEquipo == $golesElotro) {
+            $arreglo["puntos"] += 1;
+            $arreglo["pe"] += 1;
+            $arreglo["gf"] += $golesEquipo;
+            $arreglo["gc"] += $golesElotro;
+        } else {
+            $arreglo["pp"] += 1;
+            $arreglo["gf"] += $golesEquipo;
+            $arreglo["gc"] += $golesElotro;
+        }
+        $arreglo["pj"] += 1;
     }
 
     public function mostrarFixture()
@@ -69,70 +111,54 @@ class PartidoController
 
     public function registrarPartido()
     {
-        if ($this->sesion->esAdministrador()) {
-            if ((isset($_REQUEST["equipo1"]) && !empty($_REQUEST["equipo1"]))
-                &&
-                (isset($_REQUEST["equipo"]) && !empty($_REQUEST["equipo2"]))
-                &&
-                (isset($_REQUEST["golesEquipo1"]) && !empty($_REQUEST["GolesEquipo1"]))
-                &&
-                (isset($_REQUEST["golesEquipo2"]) && !empty($_REQUEST["GolesEquipo2"]))
-                &&
-                (isset($_REQUEST["fecha"]) && !empty($_REQUEST["fecha"]))
-            ) {
-                $equipo1 = $_REQUEST["equipo1"];
-                $equipo2 = $_REQUEST["equipo2"];
-                $golesEquipo1 = $_REQUEST["golesEquipo1"];
-                $golesEquipo2 = $_REQUEST["golesEquipo2"];
-                $fecha = $_REQUEST["fecha"];
-                $partido = $this->partidoModel->getPartido($equipo1, $equipo2);
+        $this->utils->comprobarAdministrador();
 
-                if ($partido == 0) {
-                    $result = $this->partidoModel->addPartido($id_equipo1, $id_equipo2, $golesEquipo1, $golesEquipo2, $fecha);
-                    $this->partidoView->showFixture($result);
-                    if ($result)
-                        $this->utils->redirigirPagina("admin", "Partido agregado correctamente");
-                    else
-                        $this->utils->redirigirPagina("admin", "Hubo un error al intentar agregar el partido ");
-                } else
-                    $this->utils->redirigirPagina("admin", "Partido ya existe");
+        if (
+            isset($_REQUEST["golesEquipo1"]) && ($_REQUEST["golesEquipo1"] != "")
+            && isset($_REQUEST["golesEquipo2"]) && ($_REQUEST["golesEquipo2"] != "")
+            && isset($_REQUEST["fecha"]) && ($_REQUEST["fecha"] != "")
+        ) {
+            $equipo1 = $_REQUEST["equipo1"];
+            $equipo2 = $_REQUEST["equipo2"];
+            if ($equipo1 === $equipo2)
+                $this->utils->redirigirPagina("admin", "Los equipos deben ser diferentes");
+            $golesEquipo1 = $_REQUEST["golesEquipo1"];
+            $golesEquipo2 = $_REQUEST["golesEquipo2"];
+            $fecha = $_REQUEST["fecha"];
+            $partido = $this->partidoModel->getCruceDePartido($equipo1, $equipo2);
+            if (!$partido) {
+                $result = $this->partidoModel->addPartido($equipo1, $equipo2, $golesEquipo1, $golesEquipo2, $fecha);
+                //$this->partidoView->showFixture($result);
+                if ($result)
+                    $this->utils->redirigirPagina("admin", "Partido agregado correctamente");
+                else
+                    $this->utils->redirigirPagina("admin", "Hubo un error al intentar agregar el partido ");
             } else
-                $this->utils->redirigirPagina("admin", "Faltan datos que completar.");
+                $this->utils->redirigirPagina("admin", "Partido ya existe");
         } else
-            $this->utils->redirigirPagina("login");
+            $this->utils->redirigirPagina("admin", "Faltan datos que completar.");
     }
 
-
-
-    public function editarPartido($id_equipo1, $id_equipo2, $golesEquipo1, $golesEquipo2, $fecha)
+    public function editarPartido($id_partido)
     {
-        if ($this->sesion->esAdministrador()) {
-            if ((isset($_REQUEST["equipo1"]) && !empty($_REQUEST["equipo1"]))
-                ||
-                (isset($_REQUEST["equipo"]) && !empty($_REQUEST["equipo2"]))
-                ||
-                (isset($_REQUEST["golesEquipo1"]) && !empty($_REQUEST["GolesEquipo1"]))
-                ||
-                (isset($_REQUEST["golesEquipo2"]) && !empty($_REQUEST["GolesEquipo2"]))
-                ||
-                (isset($_REQUEST["fecha"]) && !empty($_REQUEST["fecha"]))
-            ) {
-                $equipo1 = $_REQUEST["equipo1"];
-                $equipo2 = $_REQUEST["equipo2"];
-                $golesEquipo1 = $_REQUEST["golesEquipo1"];
-                $golesEquipo2 = $_REQUEST["golesEquipo2"];
-                $fecha = $_REQUEST["fecha"];
+        $this->utils->comprobarAdministrador();
+        if (
+            isset($_REQUEST["golesEquipo1"]) && ($_REQUEST["golesEquipo1"] != "")
+            && isset($_REQUEST["golesEquipo2"]) && ($_REQUEST["golesEquipo2"] != "")
+            && isset($_REQUEST["fecha"]) && ($_REQUEST["fecha"] != "")
+        ) {
+            $golesEquipo1 = $_REQUEST["golesEquipo1"];
+            $golesEquipo2 = $_REQUEST["golesEquipo2"];
+            $fecha = $_REQUEST["fecha"];
 
-                $result = $this->partidoModel->updatePartido($equipo1, $equipo2, $golesEquipo1, $golesEquipo2, $fecha);
-                if ($result)
-                    $this->utils->redirigirPagina("admin", "Partido actualizado correctamente");
+            $result = $this->partidoModel->updatePartido($id_partido, $golesEquipo1, $golesEquipo2, $fecha);
+            if ($result)
+                $this->utils->redirigirPagina("admin", "Partido actualizado correctamente");
 
-                else
-                    $this->utils->redirigirPagina("admin", "Hubo un error al intentar actualizar el partido ");
-            } else
-                $this->utils->redirigirPagina("admin", "Faltan datos que completar.");
+            else
+                $this->utils->redirigirPagina("admin", "Hubo un error al intentar actualizar el partido ");
         } else
-            $this->utils->redirigirPagina("login");
+            $this->utils->redirigirPagina("fixture/editar/" . $id_partido, "Faltan datos que completar.");
     }
 
     public function mostrarEditarPartido($idPartido)
@@ -145,6 +171,12 @@ class PartidoController
         }
     }
 
+    public function confirmaEliminarPartido($idPartido)
+    {
+        $this->utils->comprobarAdministrador();
+        $partidos = $this->partidoModel->getPartidos();
+        $this->partidoView->showFixture($partidos, $idPartido, true);
+    }
     public function eliminarPartido($idParatido)
     {
         if ($this->sesion->esAdministrador()) {
