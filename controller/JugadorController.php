@@ -37,34 +37,30 @@ class JugadorController
     }
     public function mostrarEditarJugador($idJugador)
     {
-        if ($this->sesion->esAdministrador()) {
-            $jugador = $this->jugadorModel->getJugador($idJugador);
-            $this->jugadorView->renderEditarJugador($jugador);
-        } else
-            $this->utils->redirigirPagina("login");
+        $this->utils->comprobarAdministrador();
+        $jugador = $this->jugadorModel->getJugador($idJugador);
+        $this->jugadorView->renderEditarJugador($jugador);
     }
     public function editarJugador($idJugador)
     {
-        if ($this->sesion->esAdministrador()) {
-            if (!empty($_REQUEST['nombre']) && !empty($_REQUEST['apellido']) && !empty($_REQUEST['dni'])) {
-                $dni = $_REQUEST['dni'];
-                $jugador = $this->jugadorModel->getJugador(null, $dni);
-                if (!$jugador || ($jugador->id_jugador == $idJugador)) {
-                    $nombre = $_REQUEST['nombre'];
-                    $apellido = $_REQUEST['apellido'];
-                    $tel = $_REQUEST['telefono'];
-                    $posicion = $_REQUEST['posicion'];
-                    $result = $this->jugadorModel->updateJugador($idJugador, $nombre, $apellido, $dni, $tel, $posicion);
-                    if ($result)
-                        $this->utils->redirigirPagina('jugadores/editar/' . $idJugador, "Jugador editado correctamente.");
-                    else
-                        $this->utils->redirigirPagina("jugadores", "Hubo un error al editar el jugador.");
-                } else
-                    $this->utils->redirigirPagina("jugadores", "Error al editar el jugador. El DNI ingresado esta asociado a otro jugador.");
+        $this->utils->comprobarAdministrador();
+        if (!empty($_REQUEST['nombre']) && !empty($_REQUEST['apellido']) && !empty($_REQUEST['dni'])) {
+            $dni = $_REQUEST['dni'];
+            $jugador = $this->jugadorModel->getJugador(null, $dni);
+            if (!$jugador || ($jugador->id_jugador == $idJugador)) {
+                $nombre = $_REQUEST['nombre'];
+                $apellido = $_REQUEST['apellido'];
+                $tel = $_REQUEST['telefono'];
+                $posicion = $_REQUEST['posicion'];
+                $result = $this->jugadorModel->updateJugador($idJugador, $nombre, $apellido, $dni, $tel, $posicion);
+                if ($result)
+                    $this->utils->redirigirPagina('jugadores/editar/' . $idJugador, "Jugador editado correctamente.");
+                else
+                    $this->utils->redirigirPagina("jugadores", "Hubo un error al editar el jugador.");
             } else
-                $this->utils->redirigirPagina('jugadores/editar/' . $idJugador, "Los campos nombre, apellido y dni deben estar completos.");
+                $this->utils->redirigirPagina("jugadores", "Error al editar el jugador. El DNI ingresado esta asociado a otro jugador.");
         } else
-            $this->utils->redirigirPagina("login");
+            $this->utils->redirigirPagina('jugadores/editar/' . $idJugador, "Los campos nombre, apellido y dni deben estar completos.");
     }
     public function registrarJugador()
     {
@@ -111,29 +107,25 @@ class JugadorController
     }
     public function eliminarJugador($idJugador)
     {
-        if ($this->sesion->esAdministrador()) {
-            $jugador = $this->jugadorModel->getJugador($idJugador);
-            if ($jugador) {
-                $this->jugadorView->renderJugador($jugador, true);
-            } else
-                $this->utils->redirigirPagina("jugadores", "El jugador que intenta borrar no existe en nuestra base de datos.");
+        $this->utils->comprobarAdministrador();
+        $jugador = $this->jugadorModel->getJugador($idJugador);
+        if ($jugador) {
+            $this->jugadorView->renderJugador($jugador, true);
         } else
-            $this->utils->redirigirPagina("login");
+            $this->utils->redirigirPagina("jugadores", "El jugador que intenta borrar no existe en nuestra base de datos.");
     }
     public function eliminarConfirmado($idJugador)
     {
-        if ($this->sesion->esAdministrador()) {
-            $jugador = $this->jugadorModel->getJugador($idJugador);
-            if ($jugador) {
-                $result = $this->jugadorModel->deleteJugador($idJugador);
-                if ($result)
-                    $this->utils->redirigirPagina("jugadores", "El jugador ha sido borrado correctamente.");
-                else
-                    $this->utils->redirigirPagina("jugadores", "Hubo un error al intentar borar el jugador.");
-            } else
-                $this->utils->redirigirPagina("jugadores", "El jugador que intenta borrar no existe en nuestra base de datos.");
+        $this->utils->comprobarAdministrador();
+        $jugador = $this->jugadorModel->getJugador($idJugador);
+        if ($jugador) {
+            $result = $this->jugadorModel->deleteJugador($idJugador);
+            if ($result)
+                $this->utils->redirigirPagina("jugadores", "El jugador ha sido borrado correctamente.");
+            else
+                $this->utils->redirigirPagina("jugadores", "Hubo un error al intentar borar el jugador.");
         } else
-            $this->utils->redirigirPagina("login");
+            $this->utils->redirigirPagina("jugadores", "El jugador que intenta borrar no existe en nuestra base de datos.");
     }
 
     public function mostrarJugadoresxEquipo($idEquipo)
@@ -148,14 +140,12 @@ class JugadorController
 
     public function mostrarEliminarEquipo($idEquipo)
     {
-        if ($this->sesion->esAdministrador()) {
-            $equipo = $this->equipoModel->getEquipo($idEquipo);
-            if ($equipo) {
-                $jugadores = $this->jugadorModel->getJugadores($idEquipo);
-                $this->jugadorView->renderJugadoresXEquipo($jugadores, $equipo, true);
-            } else
-                $this->utils->redirigirPagina('equipos', "el equipo que intenta eliminar no se encuentra en la base de datos");
+        $this->utils->comprobarAdministrador();
+        $equipo = $this->equipoModel->getEquipo($idEquipo);
+        if ($equipo) {
+            $jugadores = $this->jugadorModel->getJugadores($idEquipo);
+            $this->jugadorView->renderJugadoresXEquipo($jugadores, $equipo, true);
         } else
-            $this->utils->redirigirPagina("login");
+            $this->utils->redirigirPagina('equipos', "el equipo que intenta eliminar no se encuentra en la base de datos");
     }
 }
