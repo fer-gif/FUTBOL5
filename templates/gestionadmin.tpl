@@ -18,6 +18,7 @@
                 {include file="formregistrarjugador.tpl"}
 
             </div>
+
         </div>
         <!--ALTA DE USUARIOS-->
         <div class="panelAdmin">
@@ -66,6 +67,11 @@
                     {/foreach}
                 </ul>
             </div>
+
+        </div>
+        <div class="registroEquipo">
+
+            {include file="formregistrarfixture.tpl"}
 
         </div>
     </div>
