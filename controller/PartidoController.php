@@ -109,7 +109,7 @@ class PartidoController
             $equipo1 = $_REQUEST["equipo1"];
             $equipo2 = $_REQUEST["equipo2"];
             if ($equipo1 === $equipo2)
-                $this->utils->redirigirPagina("admin", "Los equipos deben ser diferentes");
+                $this->utils->redirigirPagina("admin", "Al registrar un partido los equipos deben ser diferentes");
             $golesEquipo1 = $_REQUEST["golesEquipo1"];
             $golesEquipo2 = $_REQUEST["golesEquipo2"];
             $fecha = $_REQUEST["fecha"];
@@ -121,9 +121,9 @@ class PartidoController
                 else
                     $this->utils->redirigirPagina("admin", "Hubo un error al intentar agregar el partido ");
             } else
-                $this->utils->redirigirPagina("admin", "Partido ya existe");
+                $this->utils->redirigirPagina("admin", "Los equipos ingresados ya poseen un partido jugado entre ellos");
         } else
-            $this->utils->redirigirPagina("admin", "Faltan datos que completar.");
+            $this->utils->redirigirPagina("admin", "Los campos goles y fecha deben estar completos en el registro de un partido.");
     }
 
     public function editarPartido($id_partido)
@@ -140,11 +140,11 @@ class PartidoController
 
             $result = $this->partidoModel->updatePartido($id_partido, $golesEquipo1, $golesEquipo2, $fecha);
             if ($result)
-                $this->utils->redirigirPagina("admin", "Partido actualizado correctamente");
+                $this->utils->redirigirPagina("fixture", "Partido actualizado correctamente");
             else
                 $this->utils->redirigirPagina("admin", "Hubo un error al intentar actualizar el partido ");
         } else
-            $this->utils->redirigirPagina("fixture/editar/" . $id_partido, "Faltan datos que completar.");
+            $this->utils->redirigirPagina("fixture/editar/" . $id_partido, "Los campos goles y fecha deben estar completos en el registro de un partido.");
     }
 
     public function mostrarEditarPartido($idPartido)

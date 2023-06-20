@@ -96,7 +96,7 @@ main {
     padding-left: 5px;
 }
 
-.containerEquipos{
+.containerEquipos {
     max-width: 400px;
     margin: auto;
     border: 1px solid #000000;
@@ -203,7 +203,7 @@ footer {
     padding: 50px 0;
     width: 60%;
     min-width: 500px;
-    margin-bottom: 20px ;
+    margin-bottom: 20px;
 }
 
 .formFixture h2 {
@@ -381,13 +381,13 @@ footer {
     margin-top: 5px;
 }
 
-.containerEquipos{
+.containerEquipos {
     max-width: 400px;
     margin: auto;
     border: 1px solid #000000;
 }
 
-.containerPartidos{
+.containerPartidos {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -395,19 +395,21 @@ footer {
     align-content: center;
 
 }
-.containerPartidos h1{
+
+.containerPartidos h1 {
     background-color: #000000;
     padding: 8px 20px;
 }
 
-.listaDePartidos{
-    color:white;
+.listaDePartidos {
+    color: white;
 }
 
-.listaDePartidos td{
+.listaDePartidos td {
     margin-left: 5px;
 }
-.listaDePartidos tr{
+
+.listaDePartidos tr {
     background-color: #343333;
     border: 1px solid transparent;
     /*height: 25px;*/
@@ -423,6 +425,29 @@ footer {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.editPartido div input{
-    display: contents;
+
+.divEquiposEdit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+    margin-top: 20px;
+}
+
+.divEquiposEdit input {
+    width: 15%;
+}
+
+.inputFecha {
+    width: 30%;
+    margin: auto;
+}
+
+.txtFecha {
+    text-align: center;
+}
+
+.filaPartido td:nth-child(2),
+.filaPartido td:nth-child(6) {
+    width: 100px;
 }

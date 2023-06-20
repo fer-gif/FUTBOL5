@@ -9,12 +9,13 @@
         </div>
     </div>
     {/if}
+    {include file="mensaje.tpl"}
     <div class="containerPartidos">
         <h1>Partidos</h1>
-            <table class="listaDePartidos">
+            <table class="listaDePartidos tablaPosiciones">
             {foreach from=$partidos item=partido}
                 
-                    <tr>
+                    <tr class="filaPartido">
                         <td>
                             {if $partido['escudo1']}
                             <img src="{$base}/image/escudos/{$partido['nom_equipo1']}/{$partido['escudo1']}"
