@@ -3,7 +3,7 @@
     {include file="mensaje.tpl"}
 
     <h1>Editar datos del partido</h1>
-    <form action="{$base}/fixture/update/{$partido['id_partido']}" method="POST" class="formEditar">
+    <form action="{$base}/fixture/update/{$partido['id_partido']}" method="POST" class="formEditar editPartido">
         <div>
             <span>{$partido['nom_equipo1']}</span>
             <label for="Goles equipo 1"></label>
