@@ -149,12 +149,9 @@ class PartidoController
 
     public function mostrarEditarPartido($idPartido)
     {
-        if ($this->sesion->esAdministrador()) {
-            $partido = $this->partidoModel->getPartido($idPartido);
-            $this->partidoView->renderEditarPartido($partido);
-        } else {
-            $this->utils->redirigirPagina("login");
-        }
+        $this->utils->comprobarAdministrador();
+        $partido = $this->partidoModel->getPartido($idPartido);
+        $this->partidoView->renderEditarPartido($partido);
     }
 
     public function confirmaEliminarPartido($idPartido)

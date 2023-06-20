@@ -92,7 +92,7 @@ class UserModel
         $sentence->bindParam(":email", $email);
         $sentence->bindParam(":idUsuario", $idUsuario);
         $response = $sentence->execute();
-        $conexion = null;
+        $con = null;
 
         return $response;
     }
