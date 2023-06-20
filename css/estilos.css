@@ -96,7 +96,7 @@ main {
     padding-left: 5px;
 }
 
-.containerEquipos {
+.containerEquipos{
     max-width: 400px;
     margin: auto;
     border: 1px solid #000000;
@@ -168,7 +168,6 @@ input {
 }
 
 .registroEquipo {
-    border: 1px solid #343333;
     max-width: 450px;
     display: flex;
     flex-direction: column;
@@ -204,7 +203,7 @@ footer {
     padding: 50px 0;
     width: 60%;
     min-width: 500px;
-    margin: auto;
+    margin-bottom: 20px ;
 }
 
 .formFixture h2 {
@@ -349,6 +348,7 @@ footer {
 }
 
 .usuariosAdmin {
+    background-color: #343333;
     padding-top: 10px;
     margin-bottom: 30px;
     padding-bottom: 20px;
@@ -379,4 +379,50 @@ footer {
 .listaDePartidos {
     list-style: none;
     margin-top: 5px;
+}
+
+.containerEquipos{
+    max-width: 400px;
+    margin: auto;
+    border: 1px solid #000000;
+}
+
+.containerPartidos{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-content: center;
+
+}
+.containerPartidos h1{
+    background-color: #000000;
+    padding: 8px 20px;
+}
+
+.listaDePartidos{
+    color:white;
+}
+
+.listaDePartidos td{
+    margin-left: 5px;
+}
+.listaDePartidos tr{
+    background-color: #343333;
+    border: 1px solid transparent;
+    /*height: 25px;*/
+    margin-top: 5px;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.editPartido div input{
+    display: contents;
 }
